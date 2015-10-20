@@ -42,6 +42,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        public Animator animator;
+        private bool hideLamp;
+
         // Use this for initialization
         private void Start()
         {
@@ -55,6 +58,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            hideLamp = false;
         }
 
 
@@ -128,7 +133,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+            UpdateCameraPosition(speed);            
         }
 
 
@@ -204,7 +209,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Read input
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-
+            
             bool waswalking = m_IsWalking;
 
             // On standalone builds, walk/run speed is modified by a key press.
@@ -228,6 +233,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StopAllCoroutines();
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
+
+            //ANIMATOR
+           
+            //optimizar
+            if (horizontal != 0 || vertical != 0)
+                animator.SetFloat("forward", speed / 5);
+            else
+                animator.SetFloat("forward", -1);
+
+            if (Input.GetKeyDown(KeyCode.L))
+                animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
         }
 
 
