@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1011 &101100000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: priest right arm
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.L/deltoid.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.L/deltoid.L/upper_arm.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.L/deltoid.L/upper_arm.L/forearm.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.L/deltoid.L/upper_arm.L/forearm.L/forearm.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/clavicle.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/clavicle.R/deltoid.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/clavicle.R/deltoid.R/upper_arm.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/clavicle.R/deltoid.R/upper_arm.R/forearm.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/clavicle.R/deltoid.R/upper_arm.R/forearm.R/forearm.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/crucifix bone
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/crucifix bone/crucifix bone_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.L.001
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_index.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_index.L/f_index.01.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_index.L/f_index.01.L/f_index.02.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_index.L/f_index.01.L/f_index.02.L/f_index.03.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_index.L/f_index.01.L/f_index.02.L/f_index.03.L/f_index.03.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_middle.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_middle.L/f_middle.01.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L/f_middle.03.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_middle.L/f_middle.01.L/f_middle.02.L/f_middle.03.L/f_middle.03.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_pinky.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_pinky.L/f_pinky.01.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_pinky.L/f_pinky.01.L/f_pinky.02.L/f_pinky.03.L/f_pinky.03.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_ring.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_ring.L/f_ring.01.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/f_ring.03.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/palm_ring.L/f_ring.01.L/f_ring.02.L/f_ring.03.L/f_ring.03.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/thumb.01.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/thumb.01.L/thumb.02.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/thumb.01.L/thumb.02.L/thumb.03.L
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.L.001/hand.L/thumb.01.L/thumb.02.L/thumb.03.L/thumb.03.L_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/forearm.R.001
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_index.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_index.R/f_index.01.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_index.R/f_index.01.R/f_index.02.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_index.R/f_index.01.R/f_index.02.R/f_index.03.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_index.R/f_index.01.R/f_index.02.R/f_index.03.R/f_index.03.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_middle.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_middle.R/f_middle.01.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R/f_middle.03.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_middle.R/f_middle.01.R/f_middle.02.R/f_middle.03.R/f_middle.03.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_pinky.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_pinky.R/f_pinky.01.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_pinky.R/f_pinky.01.R/f_pinky.02.R/f_pinky.03.R/f_pinky.03.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_ring.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_ring.R/f_ring.01.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R/f_ring.03.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/palm_ring.R/f_ring.01.R/f_ring.02.R/f_ring.03.R/f_ring.03.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/thumb.01.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/thumb.01.R/thumb.02.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/thumb.01.R/thumb.02.R/thumb.03.R
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/forearm.R.001/hand.R/thumb.01.R/thumb.02.R/thumb.03.R/thumb.03.R_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/holy bone
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/holy bone/holy bone_end
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/lamp_bone
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/lamp_bone/lamp_bone_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human:Body
+    m_Weight: 1

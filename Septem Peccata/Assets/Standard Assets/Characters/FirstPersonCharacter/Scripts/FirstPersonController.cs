@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 //controladores: teclado + rato e comando xbox
 namespace UnityStandardAssets.Characters.FirstPerson
 {
-    [RequireComponent(typeof (CharacterController))]
-    [RequireComponent(typeof (AudioSource))]
+    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
         [SerializeField] private bool m_IsWalking;
@@ -42,8 +42,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        //-------------------------------original code--------------------------------------------//
         public Animator animator;
         private bool hideLamp;
+        public Light candleLight;
+
+        private bool rightHandActive;
+        public enum weapon
+        {
+            none,
+            crucifix,
+            holyWater,
+            holyShield,
+            devineLight,
+            specialObject
+        };
+
+        public weapon weaponState = weapon.none; //objeto que o jogador tem na mão atualmente
+        private weapon currentWeaponState;
+        public weapon maxWeapon = weapon.holyWater; //indica qual a ultima arma que o jogador possui seguindo a ordem da lista
+
+        public GameObject[] weaponObjects;
 
         // Use this for initialization
         private void Start()
@@ -60,6 +79,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             hideLamp = false;
+            rightHandActive = false;
         }
 
 
@@ -133,7 +153,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);            
+            UpdateCameraPosition(speed);
+
+            WeaponSwitch();   
         }
 
 
@@ -243,7 +265,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 animator.SetFloat("forward", -1);
 
             if (Input.GetKeyDown(KeyCode.L))
+            {
                 animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
+
+                //TODO: luz a desvanecer
+                candleLight.enabled = !candleLight.enabled;
+            }
         }
 
 
@@ -267,6 +294,76 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+
+        private void WeaponSwitch()
+        {
+            //Get Input From The Mouse Wheel
+            // if mouse wheel gives a positive value add 1 to WeaponNumber
+            // if it gives a negative value decrease WeaponNumber with 1
+            //impede que continue a fazer scroll quando chega a um dos limites
+            
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
+            {
+                weaponState--;
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
+            {
+                weaponState++;
+            }
+
+            if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)
+            {
+                if (animator.GetLayerWeight(1) < 0.7f)
+                    animator.SetLayerWeight(1, 0.7f);
+                else
+                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) + 0.01f);
+            }
+
+            else if (weaponState == weapon.none && animator.GetLayerWeight(1) >= 0.0f)
+            {
+                if (animator.GetLayerWeight(1) > 0.7f)
+                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) - 0.01f);
+                else
+                    animator.SetLayerWeight(1, 0);
+            }
+
+
+            //ANIMATOR (also optimizar) só corre este bocado de código se o estado da arma mudar
+            if (currentWeaponState != weaponState)
+            {
+                //switch weapons
+                foreach (GameObject weapons in weaponObjects)
+                    weapons.SetActive(false);
+
+                switch (weaponState)
+                {
+                    case weapon.crucifix:
+                        weaponObjects[0].SetActive(true);
+                        break;
+
+                    case weapon.holyWater:
+                        weaponObjects[1].SetActive(true);
+                        break;
+
+                    case weapon.holyShield:
+                        weaponObjects[2].SetActive(true);
+                        break;
+
+                    case weapon.devineLight:
+                        weaponObjects[3].SetActive(true);
+                        break;
+
+                    case weapon.specialObject:
+                        weaponObjects[4].SetActive(true);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            currentWeaponState = weaponState;                
         }
     }
 }
