@@ -43,8 +43,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 
         //-------------------------------original code--------------------------------------------//
-        public Animator animator;
-        private bool hideLamp;
+        public Animator animator = new Animator();
         public Light candleLight;
 
         private bool rightHandActive;
@@ -61,6 +60,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public weapon weaponState = weapon.none; //objeto que o jogador tem na mão atualmente
         private weapon currentWeaponState;
         public weapon maxWeapon = weapon.holyWater; //indica qual a ultima arma que o jogador possui seguindo a ordem da lista
+        private bool switchWeapon;
 
         public GameObject[] weaponObjects;
 
@@ -77,9 +77,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
-
-            hideLamp = false;
+            
             rightHandActive = false;
+            switchWeapon = false;
         }
 
 
@@ -271,15 +271,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 //TODO: luz a desvanecer
                 candleLight.enabled = !candleLight.enabled;
             }
-        }
 
+            Debug.Log(animator.GetInteger("weapon"));
+        }
 
         private void RotateView()
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
-
-
+    
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;
@@ -302,14 +302,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // if mouse wheel gives a positive value add 1 to WeaponNumber
             // if it gives a negative value decrease WeaponNumber with 1
             //impede que continue a fazer scroll quando chega a um dos limites
-            
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
+            if (Input.GetAxis("Mouse ScrollWheel") != 0)
             {
-                weaponState--;
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
-            {
-                weaponState++;
+                if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
+                {
+                    weaponState--;
+
+                    animator.SetTrigger("switch");
+                }
+
+                else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
+                {
+                    weaponState++;
+
+                    animator.SetTrigger("switch");
+
+                    //sincronizar animações de andar
+                }
+
             }
 
             if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)
@@ -328,9 +338,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     animator.SetLayerWeight(1, 0);
             }
 
-
             //ANIMATOR (also optimizar) só corre este bocado de código se o estado da arma mudar
-            if (currentWeaponState != weaponState)
+            if (currentWeaponState != weaponState && weaponState != weapon.none)
             {
                 //switch weapons
                 foreach (GameObject weapons in weaponObjects)
@@ -340,10 +349,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 {
                     case weapon.crucifix:
                         weaponObjects[0].SetActive(true);
+                        animator.SetInteger("weapon", 0);
                         break;
 
                     case weapon.holyWater:
                         weaponObjects[1].SetActive(true);
+                        animator.SetInteger("weapon", 1);
                         break;
 
                     case weapon.holyShield:
