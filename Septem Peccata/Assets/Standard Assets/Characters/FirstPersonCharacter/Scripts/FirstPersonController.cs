@@ -63,6 +63,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool switchWeapon;
 
         public GameObject[] weaponObjects;
+        public GameObject lamp;
+
+        private bool attacking = false;
 
         // Use this for initialization
         private void Start()
@@ -256,13 +259,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
 
-            //ANIMATOR
-           
-            //optimizar
+            //Setting animator parameters
+            //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers
+        
             if (horizontal != 0 || vertical != 0)
                 animator.SetFloat("forward", speed / 5);
             else
                 animator.SetFloat("forward", -1);
+
 
             if (Input.GetKeyDown(KeyCode.L))
             {
@@ -272,7 +276,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 candleLight.enabled = !candleLight.enabled;
             }
 
-            Debug.Log(animator.GetInteger("weapon"));
+            if (Input.GetAxis("Fire1") != 0)
+                animator.SetBool("attack", true);            
+            else
+                animator.SetBool("attack", false);
+            
         }
 
         private void RotateView()
@@ -302,43 +310,45 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // if mouse wheel gives a positive value add 1 to WeaponNumber
             // if it gives a negative value decrease WeaponNumber with 1
             //impede que continue a fazer scroll quando chega a um dos limites
+
+            //TODO: mostrar nova arma quando a mão volta para cima 
+
             if (Input.GetAxis("Mouse ScrollWheel") != 0)
             {
                 if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
                 {
                     weaponState--;
-
-                    animator.SetTrigger("switch");
+                    
+                    if(weaponState != weapon.none)
+                        animator.SetTrigger("switch");
                 }
 
                 else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
                 {
                     weaponState++;
-
-                    animator.SetTrigger("switch");
-
-                    //sincronizar animações de andar
+                    
+                    if(weaponState != weapon.crucifix)
+                        animator.SetTrigger("switch");
                 }
-
             }
 
+            //Desliga a layer da mão direita caso o jogador esconda todas as armas
             if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)
             {
-                if (animator.GetLayerWeight(1) < 0.7f)
-                    animator.SetLayerWeight(1, 0.7f);
+                if (animator.GetLayerWeight(1) < 0.5f)
+                    animator.SetLayerWeight(1, 0.5f);
                 else
-                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) + 0.01f);
+                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) + 0.02f);
             }
 
             else if (weaponState == weapon.none && animator.GetLayerWeight(1) >= 0.0f)
             {
-                if (animator.GetLayerWeight(1) > 0.7f)
-                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) - 0.01f);
+                if (animator.GetLayerWeight(1) > 0.5f)
+                    animator.SetLayerWeight(1, animator.GetLayerWeight(1) - 0.02f);
                 else
                     animator.SetLayerWeight(1, 0);
             }
-
-            //ANIMATOR (also optimizar) só corre este bocado de código se o estado da arma mudar
+            
             if (currentWeaponState != weaponState && weaponState != weapon.none)
             {
                 //switch weapons

@@ -536,6 +536,7 @@ MonoBehaviour:
   weaponObjects:
   - {fileID: 2105858317}
   - {fileID: 124657144}
+  lamp: {fileID: 0}
 --- !u!143 &811011403
 CharacterController:
   m_ObjectHideFlags: 0
