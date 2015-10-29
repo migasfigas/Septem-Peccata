@@ -324,7 +324,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -85}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &665123742 stripped
@@ -1215,7 +1215,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1272,7 +1272,7 @@ GameObject:
   - 222: {fileID: 1382245037}
   - 114: {fileID: 1382245036}
   m_Layer: 5
-  m_Name: dialog
+  m_Name: dialog text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1292,8 +1292,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -56.2000008}
-  m_SizeDelta: {x: 315, y: 30}
+  m_AnchoredPosition: {x: 0, y: -64}
+  m_SizeDelta: {x: 700, y: 75}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1382245036
 MonoBehaviour:
@@ -1316,7 +1316,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1344,7 +1344,7 @@ GameObject:
   - 222: {fileID: 1547550061}
   - 114: {fileID: 1547550060}
   m_Layer: 5
-  m_Name: text box
+  m_Name: dialog box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1365,7 +1365,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: -62.7000008}
-  m_SizeDelta: {x: 325, y: 50}
+  m_SizeDelta: {x: 750, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1547550060
 MonoBehaviour:
@@ -1455,7 +1455,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 15
     m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 10
@@ -1755,8 +1755,6 @@ MonoBehaviour:
   main: {fileID: 163964863}
   screenText: {fileID: 1697954531}
   dialogBox: {fileID: 458209440}
-  dialogText: {fileID: 0}
-  dialogImage: {fileID: 0}
   dialog:
   - hello there
   - friend
