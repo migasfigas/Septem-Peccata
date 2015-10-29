@@ -1344,7 +1344,7 @@ GameObject:
   - 222: {fileID: 1547550061}
   - 114: {fileID: 1547550060}
   m_Layer: 5
-  m_Name: dialog box
+  m_Name: box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1753,15 +1753,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 163964863}
-  screenText: {fileID: 1697954531}
+  currentChar: 1
+  interactText: {fileID: 1697954531}
   dialogBox: {fileID: 458209440}
-  dialog:
-  - hello there
-  - friend
-  - i dont know what to say
-  - no one gave me a script
-  - i'm just a lonely capsule in the middle of nowhere
-  - go find me some friends please?
 --- !u!1 &2105858317 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: ed373851403f7014c80162f99ef0a259, type: 3}

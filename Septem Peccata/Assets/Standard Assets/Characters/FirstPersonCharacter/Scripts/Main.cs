@@ -9,6 +9,12 @@ public class Main : MonoBehaviour {
         first,
         second
     };
+
+    public enum NPCs
+    {
+        none,
+        oldMan
+    };
     
     public Quest activeQuest;
     public bool chatting;
@@ -22,6 +28,8 @@ public class Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
-	}
+        
+    }
+
+
 }
