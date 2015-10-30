@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 //Classe base para a criação de diferentes NPCs com diferentes falas
 //maneira de optimizar esta shit: ler texto a partir de um ficheiro (carrega o texto só quando fala com a personagem especifica)
-public class NPC : MonoBehaviour {
+public class NPC {
 
     private Main main;
 
@@ -25,8 +25,6 @@ public class NPC : MonoBehaviour {
 
     private Text dialogText;
     private Image dialogImage;
-    
-
   
     public NPC(Main main, Main.NPCs character, GameObject dialogBox, GameObject screenText)
     {

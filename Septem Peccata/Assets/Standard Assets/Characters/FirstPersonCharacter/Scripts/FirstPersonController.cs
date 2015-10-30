@@ -268,8 +268,7 @@ using Random = UnityEngine.Random;
             }
 
             //Setting animator parameters
-            //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers
-        
+            //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers        
             if (horizontal != 0 || vertical != 0)
                 animator.SetFloat("forward", speed / 5);
             else
@@ -284,12 +283,32 @@ using Random = UnityEngine.Random;
                 candleLight.enabled = !candleLight.enabled;
             }
 
-            if (Input.GetAxis("Fire1") != 0)
-                animator.SetBool("attack", true);            
-            else
-                animator.SetBool("attack", false);
-            
+        if (Input.GetAxis("Fire1") != 0)
+            animator.SetBool("attack", true);
+        else
+            animator.SetBool("attack", false);
+
+        Attack();
+    }
+
+    private void Attack()
+    {
+        if(currentWeaponState != weapon.none) {
+            //jogador perde sanidade quando ataca? how 2 do this
+            switch (currentWeaponState)
+            {
+                case weapon.crucifix:
+                    transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/crucifix").gameObject.GetComponent<SphereCollider>().enabled = animator.GetBool("attack");
+                    break;
+
+                case weapon.holyWater:
+                    break;
+
+                default:
+                    break;
+            }
         }
+    }
 
         private void RotateView()
         {
