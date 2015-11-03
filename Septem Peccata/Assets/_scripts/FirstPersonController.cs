@@ -7,84 +7,91 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AudioSource))]
 
-    public class FirstPersonController : MonoBehaviour
+public class FirstPersonController : MonoBehaviour
+{
+    [SerializeField] private bool m_IsWalking;
+    [SerializeField] private float m_WalkSpeed;
+    [SerializeField] private float m_RunSpeed;
+    [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
+    [SerializeField] private float m_JumpSpeed;
+    [SerializeField] private float m_StickToGroundForce;
+    [SerializeField] private float m_GravityMultiplier;
+    [SerializeField] private MouseLook m_MouseLook;
+    [SerializeField] private bool m_UseFovKick;
+    [SerializeField] private FOVKick m_FovKick = new FOVKick();
+    [SerializeField] private bool m_UseHeadBob;
+    [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
+    [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
+    [SerializeField] private float m_StepInterval;
+    [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+    [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+    [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+
+    public Main main;
+
+    private Camera m_Camera;
+    private bool m_Jump;
+    private float m_YRotation;
+    private Vector2 m_Input;
+    private Vector3 m_MoveDir = Vector3.zero;
+    private CharacterController m_CharacterController;
+    private CollisionFlags m_CollisionFlags;
+    private bool m_PreviouslyGrounded;
+    private Vector3 m_OriginalCameraPosition;
+    private float m_StepCycle;
+    private float m_NextStep;
+    private bool m_Jumping;
+    private AudioSource m_AudioSource;
+
+    //-------------------------------original code--------------------------------------------//
+    public Animator animator = new Animator();
+    public Light candleLight;
+
+    private bool rightHandActive;
+    public enum weapon
     {
-        [SerializeField] private bool m_IsWalking;
-        [SerializeField] private float m_WalkSpeed;
-        [SerializeField] private float m_RunSpeed;
-        [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
-        [SerializeField] private float m_JumpSpeed;
-        [SerializeField] private float m_StickToGroundForce;
-        [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
-        [SerializeField] private bool m_UseFovKick;
-        [SerializeField] private FOVKick m_FovKick = new FOVKick();
-        [SerializeField] private bool m_UseHeadBob;
-        [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
-        [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
-        [SerializeField] private float m_StepInterval;
-        [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
-        [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        none,
+        crucifix,
+        holyWater,
+        holyShield,
+        devineLight,
+        specialObject
+    };
 
-        public Main main;
+    public weapon weaponState = weapon.none; //objeto que o jogador tem na mão atualmente
+    private weapon currentWeaponState;
+    public weapon maxWeapon = weapon.holyWater; //indica qual a ultima arma que o jogador possui seguindo a ordem da lista
+    private bool switchWeapon;
 
-        private Camera m_Camera;
-        private bool m_Jump;
-        private float m_YRotation;
-        private Vector2 m_Input;
-        private Vector3 m_MoveDir = Vector3.zero;
-        private CharacterController m_CharacterController;
-        private CollisionFlags m_CollisionFlags;
-        private bool m_PreviouslyGrounded;
-        private Vector3 m_OriginalCameraPosition;
-        private float m_StepCycle;
-        private float m_NextStep;
-        private bool m_Jumping;
-        private AudioSource m_AudioSource;
+    public GameObject[] weaponObjects;
+    public GameObject lamp;
 
-        //-------------------------------original code--------------------------------------------//
-        public Animator animator = new Animator();
-        public Light candleLight;
+    private bool colliding = false;
 
-        private bool rightHandActive;
-        public enum weapon
-        {
-            none,
-            crucifix,
-            holyWater,
-            holyShield,
-            devineLight,
-            specialObject
-        };
-
-        public weapon weaponState = weapon.none; //objeto que o jogador tem na mão atualmente
-        private weapon currentWeaponState;
-        public weapon maxWeapon = weapon.holyWater; //indica qual a ultima arma que o jogador possui seguindo a ordem da lista
-        private bool switchWeapon;
-
-        public GameObject[] weaponObjects;
-        public GameObject lamp;
-
-        private bool colliding = false;
-
-        // Use this for initialization
-        private void Start()
-        {
-            m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
-            m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_FovKick.Setup(m_Camera);
-            m_HeadBob.Setup(m_Camera, m_StepInterval);
-            m_StepCycle = 0f;
-            m_NextStep = m_StepCycle/2f;
-            m_Jumping = false;
-            m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+    // Use this for initialization
+    private void Start()
+    {
+        m_CharacterController = GetComponent<CharacterController>();
+        m_Camera = Camera.main;
+        m_OriginalCameraPosition = m_Camera.transform.localPosition;
+        m_FovKick.Setup(m_Camera);
+        m_HeadBob.Setup(m_Camera, m_StepInterval);
+        m_StepCycle = 0f;
+        m_NextStep = m_StepCycle/2f;
+        m_Jumping = false;
+        m_AudioSource = GetComponent<AudioSource>();
+		m_MouseLook.Init(transform , m_Camera.transform);
             
-            rightHandActive = false;
-            switchWeapon = false;
+        rightHandActive = false;
+        switchWeapon = false;
+        
+
+        if (!main.oldmanQuest.Done)
+        {
+            animator.SetBool("hide lamp", false);
+            lamp.gameObject.SetActive(false);
         }
+    }
 
 
     // Update is called once per frame
@@ -275,7 +282,7 @@ using Random = UnityEngine.Random;
                 animator.SetFloat("forward", -1);
 
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) && main.oldmanQuest.Done)
             {
                 animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
 
@@ -302,6 +309,7 @@ using Random = UnityEngine.Random;
                     break;
 
                 case weapon.holyWater:
+                    transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/holy_water").gameObject.GetComponent<CapsuleCollider>().enabled = animator.GetBool("attack");
                     break;
 
                 default:
@@ -310,26 +318,35 @@ using Random = UnityEngine.Random;
         }
     }
 
-        private void RotateView()
-        {
+    private void RotateView()
+    {
+        if(!main.pause)
             m_MouseLook.LookRotation (transform, m_Camera.transform);
-        }
+    }
     
-        private void OnControllerColliderHit(ControllerColliderHit hit)
+    //só corre quando o jogador colide com alguma coisa, não o contrário
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        //dont move the rigidbody if the character is on top of it
+        if (m_CollisionFlags == CollisionFlags.Below)
         {
-            Rigidbody body = hit.collider.attachedRigidbody;
-            //dont move the rigidbody if the character is on top of it
-            if (m_CollisionFlags == CollisionFlags.Below)
-            {
-                return;
-            }
-
-            if (body == null || body.isKinematic)
-            {
-                return;
-            }
-            body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+            return;
         }
+
+        if (body == null || body.isKinematic)
+        {
+            return;
+        }
+        body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+
+        //o objeto em questão tem de ter um rigidbody não kinemático because of reasons
+        if (hit.gameObject.CompareTag("oldman quest object") && main.activeQuest == Main.CurrentQuest.first)
+        {
+            main.oldmanQuest.Done = true;
+            DestroyObject(hit.gameObject);
+        }
+    }
 
         private void WeaponSwitch()
         {
@@ -411,7 +428,7 @@ using Random = UnityEngine.Random;
                 }
             }
 
-            currentWeaponState = weaponState;                
-        }
-    }
+            currentWeaponState = weaponState;
+    } 
+}
 
