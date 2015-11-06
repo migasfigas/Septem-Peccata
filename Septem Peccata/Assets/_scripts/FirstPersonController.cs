@@ -88,7 +88,7 @@ public class FirstPersonController : MonoBehaviour
 
         if (!main.oldmanQuest.Done)
         {
-            animator.SetBool("hide lamp", false);
+            animator.SetBool("hide lamp", true);
             lamp.gameObject.SetActive(false);
         }
     }
@@ -244,51 +244,49 @@ public class FirstPersonController : MonoBehaviour
         }
 
 
-        private void GetInput(out float speed)
-        {
-            // Read input
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+    private void GetInput(out float speed)
+    {
+        // Read input
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
             
-            bool waswalking = m_IsWalking;
+        bool waswalking = m_IsWalking;
 
-            // On standalone builds, walk/run speed is modified by a key press.
-            // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+        // On standalone builds, walk/run speed is modified by a key press.
+        // keep track of whether or not the character is walking or running
+        m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
 
-            // set the desired speed to be walking or running
-            speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
-            m_Input = new Vector2(horizontal, vertical);
+        // set the desired speed to be walking or running
+        speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
+        m_Input = new Vector2(horizontal, vertical);
 
-            // normalize input if it exceeds 1 in combined length:
-            if (m_Input.sqrMagnitude > 1)
-            {
-                m_Input.Normalize();
-            }
+        // normalize input if it exceeds 1 in combined length:
+        if (m_Input.sqrMagnitude > 1)
+        {
+            m_Input.Normalize();
+        }
 
-            // handle speed change to give an fov kick
-            // only if the player is going to a run, is running and the fovkick is to be used
-            if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
-            {
-                StopAllCoroutines();
-                StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
-            }
+        // handle speed change to give an fov kick
+        // only if the player is going to a run, is running and the fovkick is to be used
+        if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+        }
 
-            //Setting animator parameters
-            //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers        
-            if (horizontal != 0 || vertical != 0)
-                animator.SetFloat("forward", speed / 5);
-            else
-                animator.SetFloat("forward", -1);
+        //Setting animator parameters
+        //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers        
+        if (horizontal != 0 || vertical != 0)
+            animator.SetFloat("forward", speed / 5);
+        else
+            animator.SetFloat("forward", -1);
 
 
-            if (Input.GetKeyDown(KeyCode.L) && main.oldmanQuest.Done)
-            {
-                animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
-
-                //TODO: luz a desvanecer
-                candleLight.enabled = !candleLight.enabled;
-            }
+        if (Input.GetKeyDown(KeyCode.L) && main.oldmanQuest.Done)
+        {
+            animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
+            candleLight.enabled = !candleLight.enabled;
+        }
 
         if (Input.GetAxis("Fire1") != 0)
             animator.SetBool("attack", true);
@@ -341,40 +339,43 @@ public class FirstPersonController : MonoBehaviour
         body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
 
         //o objeto em questão tem de ter um rigidbody não kinemático because of reasons
-        if (hit.gameObject.CompareTag("oldman quest object") && main.activeQuest == Main.CurrentQuest.first)
+        if (hit.gameObject.CompareTag("self quest") && main.activeQuest == Main.CurrentQuest.first)
         {
             main.oldmanQuest.Done = true;
             DestroyObject(hit.gameObject);
+            lamp.SetActive(true);
+            candleLight.enabled = false;
+            animator.SetTrigger("has lamp");
         }
     }
 
-        private void WeaponSwitch()
+    private void WeaponSwitch()
+    {
+        //Get Input From The Mouse Wheel
+        // if mouse wheel gives a positive value add 1 to WeaponNumber
+        // if it gives a negative value decrease WeaponNumber with 1
+        //impede que continue a fazer scroll quando chega a um dos limites
+
+        //TODO: mostrar nova arma quando a mão volta para cima 
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            //Get Input From The Mouse Wheel
-            // if mouse wheel gives a positive value add 1 to WeaponNumber
-            // if it gives a negative value decrease WeaponNumber with 1
-            //impede que continue a fazer scroll quando chega a um dos limites
-
-            //TODO: mostrar nova arma quando a mão volta para cima 
-
-            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
             {
-                if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
-                {
-                    weaponState--;
+                weaponState--;
                     
-                    if(weaponState != weapon.none)
-                        animator.SetTrigger("switch");
-                }
-
-                else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
-                {
-                    weaponState++;
-                    
-                    if(weaponState != weapon.crucifix)
-                        animator.SetTrigger("switch");
-                }
+                if(weaponState != weapon.none)
+                    animator.SetTrigger("switch");
             }
+
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponState != maxWeapon)
+            {
+                weaponState++;
+                    
+                if(weaponState != weapon.crucifix)
+                    animator.SetTrigger("switch");
+            }
+        }
 
             //Desliga a layer da mão direita caso o jogador esconda todas as armas
             if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)

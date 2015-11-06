@@ -34,8 +34,7 @@ public class Main : MonoBehaviour {
 
     public bool hadQuest = false;
     public bool pause = false;
-
-    // Use this for initialization
+    
     void Start () {
 
         activeQuest = CurrentQuest.none;

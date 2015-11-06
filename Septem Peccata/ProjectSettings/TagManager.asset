@@ -6,8 +6,9 @@ TagManager:
   tags:
   - NPC
   - crucifix
-  - oldman quest object
   - holy water
+  - self quest
+  - oldman quest object
   layers:
   - Default
   - TransparentFX

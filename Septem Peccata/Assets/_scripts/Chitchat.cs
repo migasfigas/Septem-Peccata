@@ -9,10 +9,9 @@ public class Chitchat {
     private Main main;
 
     //Texto da primeira personagem.
-    private ArrayList oldmanDialog = new ArrayList(3);
-    private string[] suggestionDialog = { "hello there", "friend", "i dont know what to say", "no one gave me a script", "i'm just a lonely capsule in the middle of nowhere", "go find the damn lantern." };
-    private string[] defaultDialog = { "just do it" };
-    private string[] doneDialog = { "thank" };
+    private ArrayList selfDialog = new ArrayList(2);
+    private string[] suggestionDialog = { "It's really dark, I should go look for a light." };
+    private string[] doneDialog = { "press L to turn on the candle." };
 
     private ArrayList charaterDialog = new ArrayList(2);
 
@@ -31,8 +30,9 @@ public class Chitchat {
     {
         this.main = main;
 
-        if (character == Main.NPCs.oldMan)
-            charaterDialog = oldmanDialog;
+        //definição do chat para cada personagem, como só há uma só há isto bjs (voice would be cool)
+        if (character == Main.NPCs.meMyselfAndI)
+            charaterDialog = selfDialog;
 
         this.dialogBox = dialogBox;
         this.screenText = screenText;
@@ -43,9 +43,8 @@ public class Chitchat {
     }
 
     public void Start () {
-        oldmanDialog.Add(suggestionDialog);
-        oldmanDialog.Add(defaultDialog);
-        oldmanDialog.Add(doneDialog);	
+        selfDialog.Add(suggestionDialog);
+        selfDialog.Add(doneDialog);	
 	}
 	
 	public void Update () {
@@ -58,7 +57,7 @@ public class Chitchat {
     private void GetInput()
     {
         //se o jogador decidir interagir com o Chitchat é alterado um booleano na main que indica que o jogador está a falar, ou seja, não se pode movimentar etc e é ligada a caixa de dialogo
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !main.chatting)
         {
             screenText.SetActive(false);
             dialogBox.SetActive(true);
@@ -74,9 +73,6 @@ public class Chitchat {
                 clicks++;
                 if (main.activeQuest == Main.CurrentQuest.none)
                     setText(clicks, (string[])charaterDialog[0]);
-
-                //else if (main.activeQuest == Main.CurrentQuest.none)
-                //    setText(clicks, (string[])charaterDialog[2]);
 
                 else
                     setText(clicks, (string[])charaterDialog[1]);

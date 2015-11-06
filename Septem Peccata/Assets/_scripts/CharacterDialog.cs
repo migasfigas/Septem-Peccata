@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class NPC : MonoBehaviour {
+public class CharacterDialog : MonoBehaviour {
 
     public Main main;
     public Main.NPCs currentChar;
@@ -23,12 +23,19 @@ public class NPC : MonoBehaviour {
 
     private void OnTriggerEnter(Collider col)
     {
-        character.OnTriggerEnter(col);
+        //character.OnTriggerEnter(col);
+        if (main.activeQuest == Main.CurrentQuest.none && !main.oldmanQuest.Done)
+        {
+            dialogBox.SetActive(true);
+            main.chatting = true;
+            dialogBox.transform.Find("buttons/cancel").gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider col)
     {
-        character.OnTriggerExit(col);
+        //character.OnTriggerExit(col);
+        Destroy(gameObject);
     }
 
     public void buttonAccept()

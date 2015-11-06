@@ -10,7 +10,7 @@ public class Quest {
 
     //Primeira quest: apanhar a lanterna
     public GameObject lantern;
-    bool done;
+    private bool done;
 
     public Quest(Main main, Main.CurrentQuest quest, GameObject questUI)
     {
@@ -19,7 +19,6 @@ public class Quest {
         this.questUI = questUI;
 
         done = false;
-
     }
     
 	void Start () {
@@ -38,8 +37,8 @@ public class Quest {
             {
                 case Main.CurrentQuest.first:
                     questUI.SetActive(true);
-                    if (!done) questUI.GetComponent<Text>().text = "Get the lantern.";
-                    else questUI.GetComponent<Text>().text = "Yay u got the lantern";
+                    if (!done) questUI.GetComponent<Text>().text = "Find a lantern.";
+                    else questUI.GetComponent<Text>().text = "Press L to turn it on.";
                     break;
 
                 default:
