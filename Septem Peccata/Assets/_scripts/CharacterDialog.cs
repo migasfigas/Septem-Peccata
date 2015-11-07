@@ -24,7 +24,7 @@ public class CharacterDialog : MonoBehaviour {
     private void OnTriggerEnter(Collider col)
     {
         //character.OnTriggerEnter(col);
-        if (main.activeQuest == Main.CurrentQuest.none && !main.oldmanQuest.Done)
+        if (main.activeQuest == Main.CurrentQuest.none && !main.selfQuest.Done)
         {
             dialogBox.SetActive(true);
             main.chatting = true;

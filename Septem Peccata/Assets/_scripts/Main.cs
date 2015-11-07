@@ -29,7 +29,7 @@ public class Main : MonoBehaviour {
     private GameObject questUI;
     private Text temptationUI;
 
-    public Quest oldmanQuest;
+    public Quest selfQuest;
     public Quest currentQuest;
 
     public bool hadQuest = false;
@@ -46,7 +46,7 @@ public class Main : MonoBehaviour {
         questUI = HUD.transform.FindChild("quest").gameObject;
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Text>();
 
-        oldmanQuest = new Quest(this, CurrentQuest.first, questUI);
+        selfQuest = new Quest(this, CurrentQuest.first, questUI);
 	}
 	
 	void Update () {
@@ -64,9 +64,9 @@ public class Main : MonoBehaviour {
         switch(activeQuest)
         {
             case CurrentQuest.first:
-                currentQuest = oldmanQuest;
+                currentQuest = selfQuest;
                 hadQuest = true;
-                oldmanQuest.setGUI();
+                selfQuest.setGUI();
                 break;
             default:
                 break;

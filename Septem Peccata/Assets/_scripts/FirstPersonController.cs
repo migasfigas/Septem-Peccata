@@ -66,7 +66,8 @@ public class FirstPersonController : MonoBehaviour
     public GameObject[] weaponObjects;
     public GameObject lamp;
 
-    private bool colliding = false;
+    bool reset = false;
+    float animationTime = 0.0f;
 
     // Use this for initialization
     private void Start()
@@ -84,9 +85,8 @@ public class FirstPersonController : MonoBehaviour
             
         rightHandActive = false;
         switchWeapon = false;
-        
 
-        if (!main.oldmanQuest.Done)
+        if (!main.selfQuest.Done)
         {
             animator.SetBool("hide lamp", true);
             lamp.gameObject.SetActive(false);
@@ -274,24 +274,48 @@ public class FirstPersonController : MonoBehaviour
             StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
         }
 
-        //Setting animator parameters
-        //TODO: sincronizar animações de movimento (idle e walk) entre as duas layers        
+        //animator   
         if (horizontal != 0 || vertical != 0)
+        {
             animator.SetFloat("forward", speed / 5);
+            if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("walk") &&
+                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
+            {
+                animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                animator.Play("walk", 1, animationTime);
+                animator.CrossFade("walk", 1.0f);
+                reset = true;
+            }
+        }
         else
+        {
             animator.SetFloat("forward", -1);
+            if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("idle") &&
+                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
+            {
+                animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                animator.Play("idle", 1, animationTime);
+                animator.CrossFade("idle", 1.0f);
+                reset = true;
+            }
+        }
 
 
-        if (Input.GetKeyDown(KeyCode.L) && main.oldmanQuest.Done)
+        if (Input.GetKeyDown(KeyCode.L) && main.selfQuest.Done)
         {
             animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
             candleLight.enabled = !candleLight.enabled;
         }
 
         if (Input.GetAxis("Fire1") != 0)
+        {
             animator.SetBool("attack", true);
+            reset = false;
+        }
         else
-            animator.SetBool("attack", false);
+        {
+            animator.SetBool("attack", false);            
+        }
 
         Attack();
     }
@@ -341,7 +365,7 @@ public class FirstPersonController : MonoBehaviour
         //o objeto em questão tem de ter um rigidbody não kinemático because of reasons
         if (hit.gameObject.CompareTag("self quest") && main.activeQuest == Main.CurrentQuest.first)
         {
-            main.oldmanQuest.Done = true;
+            main.selfQuest.Done = true;
             DestroyObject(hit.gameObject);
             lamp.SetActive(true);
             candleLight.enabled = false;
