@@ -100,34 +100,34 @@ public class FirstPersonController : MonoBehaviour
         if(!main.chatting)
             RotateView();
 
-            // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = Input.GetButtonDown("Jump");
-            }
-
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-            {
-                StartCoroutine(m_JumpBob.DoBobCycle());
-                PlayLandingSound();
-                m_MoveDir.y = 0f;
-                m_Jumping = false;
-            }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-            {
-                m_MoveDir.y = 0f;
-            }
-
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
-        }
-
-
-        private void PlayLandingSound()
+        // the jump state needs to read here to make sure it is not missed
+        if (!m_Jump)
         {
-            m_AudioSource.clip = m_LandSound;
-            m_AudioSource.Play();
-            m_NextStep = m_StepCycle + .5f;
+            m_Jump = Input.GetButtonDown("Jump");
         }
+
+        if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+        {
+            StartCoroutine(m_JumpBob.DoBobCycle());
+            PlayLandingSound();
+            m_MoveDir.y = 0f;
+            m_Jumping = false;
+        }
+        if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+        {
+            m_MoveDir.y = 0f;
+        }
+
+        m_PreviouslyGrounded = m_CharacterController.isGrounded;
+    }
+
+
+    private void PlayLandingSound()
+    {
+        m_AudioSource.clip = m_LandSound;
+        m_AudioSource.Play();
+        m_NextStep = m_StepCycle + .5f;
+    }
 
 
     private void FixedUpdate()
@@ -203,30 +203,30 @@ public class FirstPersonController : MonoBehaviour
         }
 
 
-        private void PlayFootStepAudio()
+    private void PlayFootStepAudio()
+    {
+        if (!m_CharacterController.isGrounded)
         {
-            if (!m_CharacterController.isGrounded)
-            {
-                return;
-            }
-            // pick & play a random footstep sound from the array,
-            // excluding sound at index 0
-            int n = Random.Range(1, m_FootstepSounds.Length);
-            m_AudioSource.clip = m_FootstepSounds[n];
-            m_AudioSource.PlayOneShot(m_AudioSource.clip);
-            // move picked sound to index 0 so it's not picked next time
-            m_FootstepSounds[n] = m_FootstepSounds[0];
-            m_FootstepSounds[0] = m_AudioSource.clip;
+            return;
         }
+        // pick & play a random footstep sound from the array,
+        // excluding sound at index 0
+        int n = Random.Range(1, m_FootstepSounds.Length);
+        m_AudioSource.clip = m_FootstepSounds[n];
+        m_AudioSource.PlayOneShot(m_AudioSource.clip);
+        // move picked sound to index 0 so it's not picked next time
+        m_FootstepSounds[n] = m_FootstepSounds[0];
+        m_FootstepSounds[0] = m_AudioSource.clip;
+    }
 
 
-        private void UpdateCameraPosition(float speed)
+    private void UpdateCameraPosition(float speed)
+    {
+        Vector3 newCameraPosition;
+        if (!m_UseHeadBob)
         {
-            Vector3 newCameraPosition;
-            if (!m_UseHeadBob)
-            {
-                return;
-            }
+            return;
+        }
             if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
             {
                 m_Camera.transform.localPosition =
@@ -274,28 +274,36 @@ public class FirstPersonController : MonoBehaviour
             StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
         }
 
-        //animator   
+        AnimatingAnimator(horizontal, vertical, speed);
+        Attack();
+    }
+
+    private void AnimatingAnimator(float horizontal, float vertical, float speed)
+    {
+
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetFloat("forward", speed / 5);
+
+            //sincroniza a animação da mão direita com a da mão esquerda
             if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("walk") &&
                 !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
             {
                 animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 animator.Play("walk", 1, animationTime);
-                animator.CrossFade("walk", 1.0f);
                 reset = true;
             }
         }
+
         else
         {
             animator.SetFloat("forward", -1);
+
             if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("idle") &&
                 !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
             {
                 animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 animator.Play("idle", 1, animationTime);
-                animator.CrossFade("idle", 1.0f);
                 reset = true;
             }
         }
@@ -313,11 +321,7 @@ public class FirstPersonController : MonoBehaviour
             reset = false;
         }
         else
-        {
-            animator.SetBool("attack", false);            
-        }
-
-        Attack();
+            animator.SetBool("attack", false);
     }
 
     private void Attack()
@@ -380,6 +384,7 @@ public class FirstPersonController : MonoBehaviour
         // if it gives a negative value decrease WeaponNumber with 1
         //impede que continue a fazer scroll quando chega a um dos limites
 
+
         //TODO: mostrar nova arma quando a mão volta para cima 
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
@@ -417,43 +422,49 @@ public class FirstPersonController : MonoBehaviour
                 else
                     animator.SetLayerWeight(1, 0);
             }
-            
-            if (currentWeaponState != weaponState && weaponState != weapon.none)
-            {
-                //switch weapons
-                foreach (GameObject weapons in weaponObjects)
-                    weapons.SetActive(false);
 
-                switch (weaponState)
-                {
-                    case weapon.crucifix:
+        
+        if (currentWeaponState != weaponState && weaponState != weapon.none)
+        {
+            //switch weapons
+            foreach (GameObject weapons in weaponObjects)
+                weapons.SetActive(false);
+                       
+            switch (weaponState)
+            {
+                case weapon.crucifix:
+                    if (animator.GetAnimatorTransitionInfo(1).IsName("switch back"))
+                    {
                         weaponObjects[0].SetActive(true);
                         animator.SetInteger("weapon", 0);
-                        break;
+                    }
+                    break;
 
-                    case weapon.holyWater:
+                case weapon.holyWater:
+                    if (animator.GetAnimatorTransitionInfo(1).IsName("switch back"))
+                    {
                         weaponObjects[1].SetActive(true);
                         animator.SetInteger("weapon", 1);
+                    }
                         break;
 
-                    case weapon.holyShield:
-                        weaponObjects[2].SetActive(true);
-                        break;
+                case weapon.holyShield:
+                    weaponObjects[2].SetActive(true);
+                    break;
 
-                    case weapon.devineLight:
-                        weaponObjects[3].SetActive(true);
-                        break;
+                case weapon.devineLight:
+                      weaponObjects[3].SetActive(true);
+                      break;
 
-                    case weapon.specialObject:
-                        weaponObjects[4].SetActive(true);
-                        break;
+                case weapon.specialObject:
+                    weaponObjects[4].SetActive(true);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
-
-            currentWeaponState = weaponState;
+        }
+        currentWeaponState = weaponState;
     } 
 }
 

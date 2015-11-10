@@ -38,21 +38,25 @@ public class Quest {
                 case Main.CurrentQuest.first:
                     questUI.SetActive(true);
                     if (!done) questUI.GetComponent<Text>().text = "Find a lantern.";
-                    else questUI.GetComponent<Text>().text = "Press L to turn it on.";
+                    else
+                    {
+                        questUI.GetComponent<Text>().CrossFadeAlpha(1, 0, false);
+                        questUI.GetComponent<Text>().text = "Press L to turn it on.";
+                    }
                     break;
 
                 default:
                     break;
             }
-        }
 
-        if(done)
-        {
             questUI.GetComponent<Text>().CrossFadeAlpha(0, 2, false);
 
             if (questUI.GetComponent<Text>().color.a <= 0)
                 questUI.SetActive(false);
+        }
 
+        if(done)
+        {
             main.activeQuest = Main.CurrentQuest.none;
         }
     }
