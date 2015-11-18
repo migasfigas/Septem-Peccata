@@ -74,6 +74,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_scripts\AICharacterControl.cs" />
+    <Compile Include="Assets\_scripts\ThirdPersonCharacter.cs" />
     <Compile Include="Assets\_scripts\_character\FirstPersonController.cs" />
     <Compile Include="Assets\_scripts\_character\HeadBob.cs" />
     <Compile Include="Assets\_scripts\_character\MouseLook.cs" />

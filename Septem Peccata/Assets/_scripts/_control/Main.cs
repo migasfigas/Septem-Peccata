@@ -47,7 +47,10 @@ public class Main : MonoBehaviour {
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Text>();
 
         selfQuest = new Quest(this, CurrentQuest.first, questUI);
-	}
+
+        //debug
+        selfQuest.Done = true;
+    }
 	
 	void Update () {
         setUI();

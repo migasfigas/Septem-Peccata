@@ -105,21 +105,6 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
     </Reference>
@@ -131,6 +116,10 @@
     <ProjectReference Include="Septem Peccata.CSharp.Plugins.csproj">
       <Project>{EA2BC55B-2F91-D3B4-0D5F-8EBB20FF1426}</Project>
       <Name>Septem Peccata.CSharp.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="Septem Peccata.CSharp.csproj">
+      <Project>{B194B772-A0F7-AFA9-2240-478C36DD4EB5}</Project>
+      <Name>Septem Peccata.CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -69,6 +69,8 @@ public class FirstPersonController : MonoBehaviour
     bool reset = false;
     float animationTime = 0.0f;
 
+    bool switching = false;
+
     // Use this for initialization
     private void Start()
     {
@@ -91,6 +93,13 @@ public class FirstPersonController : MonoBehaviour
             animator.SetBool("hide lamp", true);
             lamp.gameObject.SetActive(false);
         }
+
+        else
+        {
+            animator.SetBool("hide lamp", false);
+            animator.SetTrigger("has lamp");
+        }
+
     }
 
 
@@ -287,7 +296,7 @@ public class FirstPersonController : MonoBehaviour
 
             //sincroniza a animação da mão direita com a da mão esquerda
             if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("walk") &&
-                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
+                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("action"))
             {
                 animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 animator.Play("walk", 1, animationTime);
@@ -300,7 +309,7 @@ public class FirstPersonController : MonoBehaviour
             animator.SetFloat("forward", -1);
 
             if (animator.GetLayerWeight(1) > 0 && !reset && animator.GetCurrentAnimatorStateInfo(0).IsName("idle") &&
-                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("attack"))
+                !animator.GetBool("attack") && !animator.IsInTransition(1) && !animator.GetCurrentAnimatorStateInfo(1).IsTag("action"))
             {
                 animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 animator.Play("idle", 1, animationTime);
@@ -384,9 +393,6 @@ public class FirstPersonController : MonoBehaviour
         // if it gives a negative value decrease WeaponNumber with 1
         //impede que continue a fazer scroll quando chega a um dos limites
 
-
-        //TODO: mostrar nova arma quando a mão volta para cima 
-
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponState != weapon.none)
@@ -404,10 +410,13 @@ public class FirstPersonController : MonoBehaviour
                 if(weaponState != weapon.crucifix)
                     animator.SetTrigger("switch");
             }
-        }
 
-            //Desliga a layer da mão direita caso o jogador esconda todas as armas
-            if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)
+            //sync animações
+            reset = false;
+        }      
+
+        //Desliga a layer da mão direita caso o jogador esconda todas as armas
+        if (weaponState != weapon.none && animator.GetLayerWeight(1) <= 1.0f)
             {
                 if (animator.GetLayerWeight(1) < 0.5f)
                     animator.SetLayerWeight(1, 0.5f);
@@ -423,48 +432,20 @@ public class FirstPersonController : MonoBehaviour
                     animator.SetLayerWeight(1, 0);
             }
 
-        
-        if (currentWeaponState != weaponState && weaponState != weapon.none)
+        SwitchWeapon((int)weaponState - 1);
+    } 
+
+    private void SwitchWeapon(int weapon)
+    {
+        Debug.Log(weapon);
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("up"))
         {
-            //switch weapons
             foreach (GameObject weapons in weaponObjects)
                 weapons.SetActive(false);
-                       
-            switch (weaponState)
-            {
-                case weapon.crucifix:
-                    if (animator.GetAnimatorTransitionInfo(1).IsName("switch back"))
-                    {
-                        weaponObjects[0].SetActive(true);
-                        animator.SetInteger("weapon", 0);
-                    }
-                    break;
 
-                case weapon.holyWater:
-                    if (animator.GetAnimatorTransitionInfo(1).IsName("switch back"))
-                    {
-                        weaponObjects[1].SetActive(true);
-                        animator.SetInteger("weapon", 1);
-                    }
-                        break;
-
-                case weapon.holyShield:
-                    weaponObjects[2].SetActive(true);
-                    break;
-
-                case weapon.devineLight:
-                      weaponObjects[3].SetActive(true);
-                      break;
-
-                case weapon.specialObject:
-                    weaponObjects[4].SetActive(true);
-                    break;
-
-                default:
-                    break;
-            }
+            weaponObjects[weapon].SetActive(true);
+            animator.SetInteger("weapon", weapon);
         }
-        currentWeaponState = weaponState;
-    } 
+    }
 }
 
