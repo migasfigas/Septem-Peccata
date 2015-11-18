@@ -51,17 +51,11 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -80,16 +74,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_scripts\CharacterDialog.cs" />
-    <Compile Include="Assets\_scripts\Chitchat.cs" />
-    <Compile Include="Assets\_scripts\Enemy.cs" />
-    <Compile Include="Assets\_scripts\FirstPersonController.cs" />
-    <Compile Include="Assets\_scripts\HeadBob.cs" />
-    <Compile Include="Assets\_scripts\Main.cs" />
-    <Compile Include="Assets\_scripts\MouseLook.cs" />
-    <Compile Include="Assets\_scripts\Quest.cs" />
-    <Compile Include="Assets\_scripts\RigidbodyFirstPersonController.cs" />
-    <Compile Include="Assets\_scripts\SelfDialog.cs" />
+    <Compile Include="Assets\_scripts\_character\FirstPersonController.cs" />
+    <Compile Include="Assets\_scripts\_character\HeadBob.cs" />
+    <Compile Include="Assets\_scripts\_character\MouseLook.cs" />
+    <Compile Include="Assets\_scripts\_character\RigidbodyFirstPersonController.cs" />
+    <Compile Include="Assets\_scripts\_control\Main.cs" />
+    <Compile Include="Assets\_scripts\_control\Quest.cs" />
+    <Compile Include="Assets\_scripts\_dialog\CharacterDialog.cs" />
+    <Compile Include="Assets\_scripts\_dialog\Chitchat.cs" />
+    <Compile Include="Assets\_scripts\_enemies\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

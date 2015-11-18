@@ -14,7 +14,6 @@ public class CharacterDialog : MonoBehaviour {
     void Start() {
 
         character = new Chitchat(main, currentChar, dialogBox, interactText);
-        character.Start();
     }
     
     void Update() {
@@ -28,7 +27,6 @@ public class CharacterDialog : MonoBehaviour {
         {
             dialogBox.SetActive(true);
             main.chatting = true;
-            dialogBox.transform.Find("buttons/cancel").gameObject.SetActive(false);
         }
     }
 

@@ -21,10 +21,8 @@ public class Chitchat {
     //GUI
     private GameObject dialogBox;
     private GameObject screenText;
-    private GameObject buttons;
 
     private Text dialogText;
-    private Image dialogImage;
   
     public Chitchat(Main main, Main.NPCs character, GameObject dialogBox, GameObject screenText)
     {
@@ -38,25 +36,25 @@ public class Chitchat {
         this.screenText = screenText;
 
         dialogText = dialogBox.transform.FindChild("dialog text").GetComponent<Text>();
-        dialogImage = dialogBox.transform.FindChild("box").GetComponent<Image>();
-        buttons = dialogBox.transform.FindChild("buttons").gameObject; 
-    }
 
-    public void Start () {
         selfDialog.Add(suggestionDialog);
-        selfDialog.Add(doneDialog);	
-	}
+        selfDialog.Add(doneDialog);
+    }
 	
 	public void Update () {
 
         //só é lido o input se o jogador se encontrar na área de colisão maior do Chitchat ou quando a caixa de dialogo está ativa
         if (screenText.activeSelf || dialogBox.activeSelf)
+        {
             GetInput();
+
+        }
     }
 
     private void GetInput()
     {
-        //se o jogador decidir interagir com o Chitchat é alterado um booleano na main que indica que o jogador está a falar, ou seja, não se pode movimentar etc e é ligada a caixa de dialogo
+        //se o jogador decidir interagir com o Chitchat é alterado um booleano na main que indica que o jogador está a falar, ou seja, 
+        //não se pode movimentar etc e é ligada a caixa de dialogo
         if (Input.GetKeyDown(KeyCode.E) && !main.chatting)
         {
             screenText.SetActive(false);
@@ -71,8 +69,22 @@ public class Chitchat {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 clicks++;
-                if (main.activeQuest == Main.CurrentQuest.none)
+                
+                if (clicks != charaterDialog.Count-1 && main.activeQuest == Main.CurrentQuest.none)
                     setText(clicks, (string[])charaterDialog[0]);
+                
+                else if(clicks == charaterDialog.Count-1 && main.activeQuest == Main.CurrentQuest.none)
+                {
+                    Debug.Log("fds");
+
+                    clicks = 0;
+
+                    dialogBox.SetActive(false);
+                    main.chatting = false;
+
+                    //o jogador aceita o quest e este é guardado na main
+                    main.activeQuest = Main.CurrentQuest.first;
+                }
 
                 else
                     setText(clicks, (string[])charaterDialog[1]);
@@ -91,14 +103,7 @@ public class Chitchat {
 
     public void buttonAccept()
     {
-        clicks = 0;
-
-        dialogBox.SetActive(false);
-        buttons.SetActive(false);
-        main.chatting = false;
-
-        //o jogador aceita o quest e este é guardado na main
-        main.activeQuest = Main.CurrentQuest.first;        
+             
     }
 
     public void buttonCancel()
@@ -106,7 +111,6 @@ public class Chitchat {
         clicks = 0;
 
         dialogBox.SetActive(false);
-        buttons.SetActive(false);
         main.chatting = false;
     }
 
@@ -118,11 +122,7 @@ public class Chitchat {
 
         /*se o jogador ainda não tiver aceite um quest são apresentados os botões para aceitar/cancelar na penultima mensagem do Chitchat. Caso contrário quando 
          *chega ao número máximo de cliques a mensagem desaparece*/
-        if (click == text.Length - 1 && main.activeQuest == Main.CurrentQuest.none)
-            buttons.SetActive(true);
-
-        else if (click == text.Length && main.activeQuest != Main.CurrentQuest.none) 
-            buttonCancel();
+        
     }
 
     //ao colidir com a maior área de colisão do Chitchat é apresentada a mensagem para interação, quano o jogador sai da area a mensagem desaparece
