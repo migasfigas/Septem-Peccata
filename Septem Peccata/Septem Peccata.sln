@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Septem Peccata.CSharp.Plugi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Septem Peccata.CSharp", "Septem Peccata.CSharp.csproj", "{B194B772-A0F7-AFA9-2240-478C36DD4EB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Septem Peccata.CSharp.Editor", "Septem Peccata.CSharp.Editor.csproj", "{AEC3281B-5098-2E37-2376-344FC780244F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{B194B772-A0F7-AFA9-2240-478C36DD4EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B194B772-A0F7-AFA9-2240-478C36DD4EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B194B772-A0F7-AFA9-2240-478C36DD4EB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEC3281B-5098-2E37-2376-344FC780244F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEC3281B-5098-2E37-2376-344FC780244F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEC3281B-5098-2E37-2376-344FC780244F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEC3281B-5098-2E37-2376-344FC780244F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
