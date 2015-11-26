@@ -85,6 +85,7 @@
     <Compile Include="Assets\_scripts\_dialog\CharacterDialog.cs" />
     <Compile Include="Assets\_scripts\_dialog\Chitchat.cs" />
     <Compile Include="Assets\_scripts\_enemies\Enemy.cs" />
+    <Compile Include="Assets\_scripts\_main menu\MainMenu.cs" />
     <Compile Include="Assets\_scripts\_misc\FlickeringLight.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,13 +27,17 @@ public class Main : MonoBehaviour {
     private GameObject HUD, pauseUI;
 
     private GameObject questUI;
-    private Text temptationUI;
+    private RectTransform temptationUI;
 
     public Quest selfQuest;
     public Quest currentQuest;
 
     public bool hadQuest = false;
     public bool pause = false;
+
+    public bool questdone = false;
+
+    float sizeX = 0;
     
     void Start () {
 
@@ -44,12 +48,14 @@ public class Main : MonoBehaviour {
         pauseUI = Canvas.transform.FindChild("pause").gameObject;
 
         questUI = HUD.transform.FindChild("quest").gameObject;
-        temptationUI = HUD.transform.FindChild("temptation").GetComponent<Text>();
+        temptationUI = HUD.transform.FindChild("temptation").GetComponent<Image>().transform.FindChild("bar").GetComponent<RectTransform>();
 
         selfQuest = new Quest(this, CurrentQuest.first, questUI);
 
+        sizeX = temptationUI.sizeDelta.x;
+
         //debug
-        selfQuest.Done = true;
+        selfQuest.Done = questdone;
     }
 	
 	void Update () {
@@ -58,11 +64,16 @@ public class Main : MonoBehaviour {
 
         if (temptation >= 100)
             PriestDie();
+
+        if(Input.GetKey(KeyCode.X))
+        {
+            temptation++;
+        }
     }
 
     private void setUI()
     {
-        temptationUI.text = temptation.ToString();
+        temptationUI.sizeDelta = new Vector2(sizeX * temptation/100, temptationUI.sizeDelta.y);
 
         switch(activeQuest)
         {
