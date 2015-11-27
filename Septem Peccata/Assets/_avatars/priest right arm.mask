@@ -10,6 +10,8 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
+  - m_Path: cloth LP
+    m_Weight: 1
   - m_Path: Padre_-_Make_Human
     m_Weight: 0
   - m_Path: Padre_-_Make_Human/clavicle.L
@@ -144,6 +146,14 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Padre_-_Make_Human/lamp_bone/lamp_top/lamp_bottom
     m_Weight: 0
+  - m_Path: Padre_-_Make_Human/manga.l
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/manga.l/manga.l_end
+    m_Weight: 0
+  - m_Path: Padre_-_Make_Human/manga.r
+    m_Weight: 1
+  - m_Path: Padre_-_Make_Human/manga.r/manga.r_end
+    m_Weight: 1
   - m_Path: Padre_-_Make_Human/object_bone
     m_Weight: 1
   - m_Path: Padre_-_Make_Human/object_bone/crucifix
