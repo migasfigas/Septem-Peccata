@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour {
 
         if (health == 0)
             Die();
+
+
 	}
 
     private void OnTriggerStay(Collider col)
