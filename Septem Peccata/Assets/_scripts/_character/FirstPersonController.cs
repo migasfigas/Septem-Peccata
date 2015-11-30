@@ -437,7 +437,6 @@ public class FirstPersonController : MonoBehaviour
                 animator.SetLayerWeight(1, 0);
         }
 
-
         SwitchWeapon((int)weaponState - 1);
 
         currentWeaponState = weaponState;
@@ -446,8 +445,6 @@ public class FirstPersonController : MonoBehaviour
 
     private void SwitchWeapon(int weapon)
     {
-        Debug.Log((int)weapon);
-
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("up") && weapon != -1)
         {
             foreach (GameObject weapons in weaponObjects)
