@@ -37,6 +37,8 @@ public class Main : MonoBehaviour {
 
     public bool questdone = false;
 
+    public bool playerAttacking = false;
+
     float sizeX = 0;
     
     void Start () {

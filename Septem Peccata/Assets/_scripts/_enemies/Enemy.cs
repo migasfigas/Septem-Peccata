@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     private Animator animator;
     public int health = 100;
     public bool canAtack;
-   public  float damping = 2;
+    public  float damping = 3;
 
     //random posições treme bué antes de explodir 
     //resolver ontriggerexit (crucifix desliga collider não deteta saida)
@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour {
     {
         if (health == 0)
             Die();
+
+        if (!main.playerAttacking)
+            canAtack = true;
 	}
 
     public void Move(Vector3 move, Vector3 target)
@@ -52,27 +55,16 @@ public class Enemy : MonoBehaviour {
             if(canAtack) main.temptation++;
         }
 
-        if (col.gameObject.CompareTag("crucifix"))
+        if (col.gameObject.CompareTag("crucifix") && main.playerAttacking)
         {
             canAtack = false;
-            Debug.Log("hello");
         }
 
-        if (col.gameObject.CompareTag("holy water"))
+        if (col.gameObject.CompareTag("holy water") && main.playerAttacking)
         {
             health -= 2;
         }
     }
-
-    private void OnTriggerExit(Collider col)
-    {
-        if(col.gameObject.CompareTag("crucifix"))
-        {
-            canAtack = true;
-            Debug.Log("goodbye");
-        }
-    }
-
 
     private void Die()
     {

@@ -333,34 +333,39 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetAxis("Fire1") != 0)
         {
             animator.SetBool("attack", true);
-            Attack();
+            main.playerAttacking = true;
 
             reset = false;
         }
 
         else
+        {
             animator.SetBool("attack", false);
+            main.playerAttacking = false;
+        }
     }
 
     private void Attack()
     {
-        if (currentWeaponState != weapon.none)
-        {
-            //jogador perde sanidade quando ataca? how 2 do this
-            switch (currentWeaponState)
-            {
-                case weapon.crucifix:
-                    transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/crucifix").gameObject.GetComponent<SphereCollider>().enabled = animator.GetBool("attack");
-                    break;
+        //if (currentWeaponState != weapon.none)
+        //{
+        //    //jogador perde sanidade quando ataca? how 2 do this
+        //    switch (currentWeaponState)
+        //    {
+        //        case weapon.crucifix:
+        //            transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/crucifix").gameObject.GetComponent<SphereCollider>().enabled = animator.GetBool("attack");
+        //            break;
 
-                case weapon.holyWater:
-                    transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/holy_water").gameObject.GetComponent<CapsuleCollider>().enabled = animator.GetBool("attack");
-                    break;
+        //        case weapon.holyWater:
+        //            transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/holy_water").gameObject.GetComponent<CapsuleCollider>().enabled = animator.GetBool("attack");
+        //            break;
 
-                default:
-                    break;
-            }
-        }
+        //        default:
+        //            break;
+        //    }
+        //}
+
+        
     }
 
     private void RotateView()
@@ -384,16 +389,6 @@ public class FirstPersonController : MonoBehaviour
             return;
         }
         body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
-
-        //o objeto em questão tem de ter um rigidbody não kinemático because of reasons
-        if (hit.gameObject.CompareTag("self quest") && main.activeQuest == Main.CurrentQuest.first)
-        {
-            main.selfQuest.Done = true;
-            DestroyObject(hit.gameObject);
-            lamp.SetActive(true);
-            candleLight.enabled = false;
-            animator.SetTrigger("has lamp");
-        }
     }
 
     private void WeaponSwitch()

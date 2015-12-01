@@ -75,8 +75,6 @@ public class Chitchat {
                 
                 else if(clicks == charaterDialog.Count-1 && main.activeQuest == Main.CurrentQuest.none)
                 {
-                    Debug.Log("fds");
-
                     clicks = 0;
 
                     dialogBox.SetActive(false);

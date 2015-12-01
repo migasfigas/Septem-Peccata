@@ -84,6 +84,7 @@
     <Compile Include="Assets\_scripts\_control\Quest.cs" />
     <Compile Include="Assets\_scripts\_dialog\CharacterDialog.cs" />
     <Compile Include="Assets\_scripts\_dialog\Chitchat.cs" />
+    <Compile Include="Assets\_scripts\_dialog\InteractiveObject.cs" />
     <Compile Include="Assets\_scripts\_enemies\DumbAI.cs" />
     <Compile Include="Assets\_scripts\_enemies\Enemy.cs" />
     <Compile Include="Assets\_scripts\_main menu\MainMenu.cs" />
@@ -95,6 +96,7 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+    <None Include="Assets\_downloaded assets\Medieval props\Read me.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
