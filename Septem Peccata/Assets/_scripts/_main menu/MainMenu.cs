@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour {
 
     public void newGame()
     {
-        Application.LoadLevel("_scene_01");
+        
     }
 
     public void loadGame()

@@ -63,7 +63,7 @@ public class FirstPersonController : MonoBehaviour
     public Animator animator = new Animator();
     public Light candleLight;
 
-    private bool rightHandActive;
+
     public enum weapon
     {
         none,
@@ -100,8 +100,7 @@ public class FirstPersonController : MonoBehaviour
         m_Jumping = false;
         m_AudioSource = GetComponent<AudioSource>();
         m_MouseLook.Init(transform, m_Camera.transform);
-
-        rightHandActive = false;
+        
         switchWeapon = false;
 
         weaponState = weapon.none;

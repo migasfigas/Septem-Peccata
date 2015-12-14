@@ -23,7 +23,7 @@ public class InteractiveObject : MonoBehaviour {
 
     private void GetInput()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !main.chatting && main.activeQuest == questObject)
+        if (Input.GetKeyDown(KeyCode.E) && !main.chatting && main.activeQuest == Main.CurrentQuest.first)
         {
             interactText.SetActive(false);
             main.selfQuest.Done = true;

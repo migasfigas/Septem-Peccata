@@ -9,6 +9,9 @@ TagManager:
   - holy water
   - self quest
   - oldman quest object
+  - Fire
+  - door
+  - last door standing
   layers:
   - Default
   - TransparentFX
