@@ -7,8 +7,8 @@ public class Main : MonoBehaviour {
     public enum CurrentQuest
     {
         none,
-        first,
-        second
+        lamp,
+        hallway
     };
 
     public enum NPCs
@@ -30,6 +30,7 @@ public class Main : MonoBehaviour {
     private RectTransform temptationUI;
 
     public Quest selfQuest;
+    public Quest hallwayQuest;
     public Quest currentQuest;
 
     public bool hadQuest = false;
@@ -40,6 +41,11 @@ public class Main : MonoBehaviour {
     public bool playerAttacking = false;
 
     float sizeX = 0;
+
+    //2 7 4 3 6 0 1
+    public int lastDoor = 0; //cada vez que incrementa modifica a estatua
+    public int[] doorSequence = { 2, 7, 4, 3, 6, 0 };
+    public GameObject statue;
     
     void Start () {
 
@@ -52,7 +58,8 @@ public class Main : MonoBehaviour {
         questUI = HUD.transform.FindChild("quest").gameObject;
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Image>().transform.FindChild("bar").GetComponent<RectTransform>();
 
-        selfQuest = new Quest(this, CurrentQuest.first, questUI);
+        selfQuest = new Quest(this, CurrentQuest.lamp, questUI);
+        hallwayQuest = new Quest(this, CurrentQuest.hallway, questUI);
 
         sizeX = temptationUI.sizeDelta.x;
 
@@ -79,11 +86,16 @@ public class Main : MonoBehaviour {
 
         switch(activeQuest)
         {
-            case CurrentQuest.first:
+            case CurrentQuest.lamp:
                 currentQuest = selfQuest;
                 hadQuest = true;
                 selfQuest.setGUI();
                 break;
+
+            case CurrentQuest.hallway:
+                currentQuest = hallwayQuest;
+                break;
+
             default:
                 break;
         }

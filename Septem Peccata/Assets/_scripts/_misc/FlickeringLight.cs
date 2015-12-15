@@ -4,7 +4,6 @@ using System.Collections;
 public class FlickeringLight : MonoBehaviour
 {
     Light light;
-    float intensity = 1f;
     float rand;
 
     float timer = 0;

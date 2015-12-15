@@ -4,39 +4,43 @@ using System.Collections;
 public class OpenDoors : MonoBehaviour
 {
     public Main main;
-    public GameObject plane;
     public int doorNumber;
 
-    public GameObject[] otherDoors = new GameObject[7];
+    public GameObject[] otherDoors = new GameObject[7]; //lista de portas em cada corredor
 
-    float smooth = 2.0f;
+    float smooth = 2.5f;
     float DoorOpenAngle = 90.0f;
     public bool open;
 
     private Vector3 defaultRot;
+    private Vector3 defautRotGlobal;
     private Vector3 defaultPos;
     private Vector3 openRot;
 
     public GameObject interactText;
     public GameObject hallwayPrefab;
     public GameObject building;
+    private AudioSource audioSource;
 
     private bool created;
-    private bool closed4ever = false;
+    private bool closed4ever;
     private bool colliding;
     private bool deleted;
+    private bool destroy;
+    private bool changed;
 
-    public bool right;
-    public bool destroy;
+    public bool right; //de que lado está a porta
 
-    private GameObject generated;
+    private GameObject generated; //cada porta gera um novo corredor
 
     void Start()
     {
-        defaultRot = transform.eulerAngles;
-        defaultPos = transform.position;
+        defaultRot = transform.localEulerAngles;
+        defautRotGlobal = transform.eulerAngles;
+        defaultPos = transform.FindChild("body").position;
         
         openRot = new Vector3(defaultRot.x, defaultRot.y - DoorOpenAngle, defaultRot.z);
+        audioSource = GetComponent<AudioSource>();
 
         created = false;
         open = false;
@@ -44,6 +48,13 @@ public class OpenDoors : MonoBehaviour
         colliding = false;
         closed4ever = false;
         destroy = false;
+        changed = false;
+
+        if (main.activeQuest == Main.CurrentQuest.hallway)
+        {
+            enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
+        }
     }
     
     void Update()
@@ -51,20 +62,27 @@ public class OpenDoors : MonoBehaviour
         if (open)
         {
             //Open door
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, openRot, Time.deltaTime * smooth);
+            transform.localEulerAngles = Vector3.Slerp(transform.localEulerAngles, openRot, Time.deltaTime * smooth);
+            
         }
 
-        else if(!open && transform.eulerAngles.y < defaultRot.y)
+        else if(!open && transform.localEulerAngles.y < defaultRot.y)
         {
             //Close door
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, defaultRot, Time.deltaTime * smooth);
-            
+            transform.localEulerAngles = Vector3.Slerp(transform.localEulerAngles, defaultRot, Time.deltaTime * smooth);
 
-            if (closed4ever && deleted && gameObject.transform.localEulerAngles.y > 179)
+            if (closed4ever && deleted && gameObject.transform.localEulerAngles.y > 170)
             {
                 DestroyObject(building);
                 GetComponent<BoxCollider>().enabled = false;
-                Destroy(GameObject.FindWithTag("last door standing"));
+
+                
+
+                GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("last door standing");
+                foreach (GameObject target in gameObjects)
+                {
+                    GameObject.Destroy(target);
+                }
 
                 transform.parent.gameObject.tag = "last door standing";
 
@@ -74,8 +92,14 @@ public class OpenDoors : MonoBehaviour
                deleted = false;
             }
 
-            else if(!closed4ever && destroy && gameObject.transform.localEulerAngles.y > 179)
+            else if(!closed4ever && destroy && gameObject.transform.localEulerAngles.y > 170)
             {
+                if (changed)
+                {
+                    main.lastDoor--;
+                    changed = false;
+                }
+
                 DestroyObject(generated);
                 destroy = false;
                 created = false;
@@ -86,15 +110,22 @@ public class OpenDoors : MonoBehaviour
         {
             open = !open;
 
+            audioSource.Play();
+
             if (!created)
             {
                 if(!right)
-                    generated = (GameObject)Instantiate(hallwayPrefab, new Vector3(defaultPos.x, 0, defaultPos.z), Quaternion.Euler(new Vector3(0, defaultRot.y + 90, 0)));
+                    generated = (GameObject)Instantiate(hallwayPrefab, new Vector3(defaultPos.x, transform.parent.position.y + 0.001f, defaultPos.z), Quaternion.Euler(new Vector3(0, defautRotGlobal.y + 90, 0)));
                 else
-                    generated = (GameObject)Instantiate(hallwayPrefab, new Vector3(defaultPos.x, 0, defaultPos.z), Quaternion.Euler(new Vector3(0, defaultRot.y - 90, 0)));
+                    generated = (GameObject)Instantiate(hallwayPrefab, new Vector3(defaultPos.x, transform.parent.position.y + 0.001f, defaultPos.z), Quaternion.Euler(new Vector3(0, defautRotGlobal.y - 90, 0)));
 
-                plane.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+                transform.position += new Vector3(0.03f, 0, 0);
 
+                if (main.doorSequence.Length >= main.lastDoor && main.doorSequence[main.lastDoor] == doorNumber)
+                {
+                    main.lastDoor++;
+                    changed = true;
+                }
                 created = true;
             }
         }
@@ -125,11 +156,19 @@ public class OpenDoors : MonoBehaviour
         open = false;
         closed4ever = true;
         deleted = true;
+
+        main.statue.gameObject.tag = "last door standing";
+
+        audioSource.Play();
+
     }
 
     public void DestroyGenerated()
     {
-        open = false;
-        destroy = true;
+        if (generated != null)
+        {
+            open = false;
+            destroy = true;
+        }
     }
 }

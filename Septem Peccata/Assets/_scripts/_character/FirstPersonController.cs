@@ -77,15 +77,12 @@ public class FirstPersonController : MonoBehaviour
     public weapon weaponState = weapon.none; //objeto que o jogador tem na mão atualmente
     private weapon currentWeaponState;
     public weapon maxWeapon = weapon.holyWater; //indica qual a ultima arma que o jogador possui seguindo a ordem da lista
-    private bool switchWeapon;
 
     public GameObject[] weaponObjects;
     public GameObject lamp;
 
     bool reset = false;
     float animationTime = 0.0f;
-
-    bool switching = false;
 
     // Use this for initialization
     private void Start()
@@ -100,8 +97,6 @@ public class FirstPersonController : MonoBehaviour
         m_Jumping = false;
         m_AudioSource = GetComponent<AudioSource>();
         m_MouseLook.Init(transform, m_Camera.transform);
-        
-        switchWeapon = false;
 
         weaponState = weapon.none;
 

@@ -45,6 +45,11 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   hadQuest: 0
   pause: 0
+  questdone: 1
+  playerAttacking: 0
+  lastDoor: 0
+  doorSequence: 020000000700000004000000030000000600000000000000
+  statue: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

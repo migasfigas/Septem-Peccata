@@ -81,7 +81,7 @@ public class Chitchat {
                     main.chatting = false;
 
                     //o jogador aceita o quest e este é guardado na main
-                    main.activeQuest = Main.CurrentQuest.first;
+                    main.activeQuest = Main.CurrentQuest.lamp;
                 }
 
                 else

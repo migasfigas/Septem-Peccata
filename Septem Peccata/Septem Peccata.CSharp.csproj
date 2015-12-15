@@ -74,7 +74,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DestroyCreated.cs" />
+    <Compile Include="Assets\HallwayStatue.cs" />
     <Compile Include="Assets\_scripts\AICharacterControl.cs" />
     <Compile Include="Assets\_scripts\ThirdPersonCharacter.cs" />
     <Compile Include="Assets\_scripts\_character\FirstPersonController.cs" />
@@ -89,9 +89,11 @@
     <Compile Include="Assets\_scripts\_enemies\DumbAI.cs" />
     <Compile Include="Assets\_scripts\_enemies\Enemy.cs" />
     <Compile Include="Assets\_scripts\_main menu\MainMenu.cs" />
+    <Compile Include="Assets\_scripts\_misc\DestroyCreated.cs" />
     <Compile Include="Assets\_scripts\_misc\DoorClose.cs" />
     <Compile Include="Assets\_scripts\_misc\FlickeringLight.cs" />
     <Compile Include="Assets\_scripts\_misc\OpenDoors.cs" />
+    <Compile Include="Assets\loadNext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -15,7 +16,8 @@ public class MainMenu : MonoBehaviour {
 
     public void newGame()
     {
-        
+        SceneManager.LoadScene("_scene_01");
+
     }
 
     public void loadGame()
@@ -24,6 +26,11 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void settings()
+    {
+        Application.Quit();
+    }
+
+    public void exit()
     {
 
     }

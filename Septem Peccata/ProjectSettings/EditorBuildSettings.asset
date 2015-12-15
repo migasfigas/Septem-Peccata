@@ -10,6 +10,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_scenes/_scene_01.unity
   - enabled: 1
+    path: Assets/_scenes/_statue level.unity
+  - enabled: 1
     path: Assets/_scenes/_IA test.unity
-  - enabled: 0
-    path: Assets/_scenes/_main menu.unity

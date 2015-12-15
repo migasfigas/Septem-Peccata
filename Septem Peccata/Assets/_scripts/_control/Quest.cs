@@ -35,7 +35,7 @@ public class Quest {
         {
             switch (quest)
             {
-                case Main.CurrentQuest.first:
+                case Main.CurrentQuest.lamp:
                     questUI.SetActive(true);
                     if (!done) questUI.GetComponent<Text>().text = "Find a lantern.";
                     else
@@ -43,6 +43,9 @@ public class Quest {
                         questUI.GetComponent<Text>().CrossFadeAlpha(1, 0, false);
                         questUI.GetComponent<Text>().text = "Press L to turn it on.";
                     }
+                    break;
+
+                case Main.CurrentQuest.hallway:
                     break;
 
                 default:
