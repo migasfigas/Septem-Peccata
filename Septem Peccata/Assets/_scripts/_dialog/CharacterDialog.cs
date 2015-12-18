@@ -18,6 +18,11 @@ public class CharacterDialog : MonoBehaviour {
     
     void Update() {
         character.Update();
+
+        if(Input.GetKeyDown(KeyCode.PageDown))
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider col)

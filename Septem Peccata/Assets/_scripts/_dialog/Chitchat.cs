@@ -10,7 +10,7 @@ public class Chitchat {
 
     //Texto da primeira personagem.
     private ArrayList selfDialog = new ArrayList(2);
-    private string[] suggestionDialog = { "It's dark in here, better turn my flashlight on." };
+    private string[] suggestionDialog = { "It's dark in here, I should find some light.\n(press enter)" };
     private string[] doneDialog = { "press L to turn on the candle." };
 
     private ArrayList charaterDialog = new ArrayList(2);

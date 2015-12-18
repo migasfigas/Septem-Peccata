@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
@@ -41,6 +42,8 @@ public class Main : MonoBehaviour {
     public bool playerAttacking = false;
 
     float sizeX = 0;
+
+    public int currentLevel;
 
     //2 7 4 3 6 0 1
     public int lastDoor = 0; //cada vez que incrementa modifica a estatua
@@ -109,6 +112,21 @@ public class Main : MonoBehaviour {
 
             if (pause) onPauseGame();
             else onResumeGame();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Home))
+        {
+            SceneManager.LoadScene(currentLevel);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        if(Input.GetKeyDown(KeyCode.End))
+        {
+            SceneManager.LoadScene(currentLevel+1);
         }
     }
 

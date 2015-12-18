@@ -984,7 +984,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 408112}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lamp_bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1855,8 +1855,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164364}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.4, y: 1.63, z: -27.62}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
+  m_LocalPosition: {x: 0, y: 2.54, z: -1.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 483074}
@@ -2516,7 +2516,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0.00135}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000017423075, y: -0.00006679892, z: -0.000492209}
+  m_ConnectedAnchor: {x: 0.00001742349, y: -0.00006678999, z: -0.00049220794}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -2658,8 +2658,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: 0.8833671, b: 0.63235295, a: 1}
-  m_Intensity: 2
-  m_Range: 5
+  m_Intensity: 1
+  m_Range: 8
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -2701,7 +2701,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   exposureAdjustment: 2
-  middleGrey: 0.001
+  middleGrey: 0.0015
   white: 0.05
   adaptionSpeed: 1.5
   tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
@@ -2730,7 +2730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WalkSpeed: 5
   m_RunSpeed: 10
-  m_RunstepLenghten: 0.7
+  m_RunstepLenghten: 0.2
   m_JumpSpeed: 7
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
@@ -3052,8 +3052,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 3
-  m_Radius: 0.5
+  m_Height: 3.5
+  m_Radius: 0.7
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
