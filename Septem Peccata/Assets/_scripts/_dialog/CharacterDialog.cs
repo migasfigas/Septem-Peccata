@@ -28,10 +28,10 @@ public class CharacterDialog : MonoBehaviour {
     private void OnTriggerEnter(Collider col)
     {
         //character.OnTriggerEnter(col);
-        if (main.activeQuest == Main.CurrentQuest.none && !main.selfQuest.Done)
+        if (main.ActiveQuest == Main.QuestType.none && !main.LampQuest.Done)
         {
             dialogBox.SetActive(true);
-            main.chatting = true;
+            main.Chatting = true;
         }
     }
 

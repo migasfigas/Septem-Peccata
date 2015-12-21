@@ -3,7 +3,8 @@ using System.Collections;
 
 public class OpenDoors : MonoBehaviour
 {
-    public Main main;
+    [SerializeField] private Main main;
+    public StatuePuzzle puzzle;
     public int doorNumber;
 
     public GameObject[] otherDoors = new GameObject[7]; //lista de portas em cada corredor
@@ -35,6 +36,8 @@ public class OpenDoors : MonoBehaviour
 
     void Start()
     {
+        main = GameObject.Find("main").gameObject.GetComponent<Main>();
+
         defaultRot = transform.localEulerAngles;
         defautRotGlobal = transform.eulerAngles;
         defaultPos = transform.FindChild("body").position;
@@ -50,7 +53,7 @@ public class OpenDoors : MonoBehaviour
         destroy = false;
         changed = false;
 
-        if (main.activeQuest == Main.CurrentQuest.hallway)
+        if (main.ActiveQuest == Main.QuestType.hallway)
         {
             enabled = false;
             GetComponent<BoxCollider>().enabled = false;
@@ -96,7 +99,7 @@ public class OpenDoors : MonoBehaviour
             {
                 if (changed)
                 {
-                    main.lastDoor--;
+                    puzzle.lastDoor--;
                     changed = false;
                 }
 
@@ -121,9 +124,9 @@ public class OpenDoors : MonoBehaviour
 
                 transform.position += new Vector3(0.03f, 0, 0);
 
-                if (main.doorSequence.Length >= main.lastDoor && main.doorSequence[main.lastDoor] == doorNumber)
+                if (puzzle.doorSequence.Length >= puzzle.lastDoor && puzzle.doorSequence[puzzle.lastDoor] == doorNumber)
                 {
-                    main.lastDoor++;
+                    puzzle.lastDoor++;
                     changed = true;
                 }
                 created = true;
@@ -157,7 +160,7 @@ public class OpenDoors : MonoBehaviour
         closed4ever = true;
         deleted = true;
 
-        main.statue.gameObject.tag = "last door standing";
+        puzzle.statue.gameObject.tag = "last door standing";
 
         audioSource.Play();
 

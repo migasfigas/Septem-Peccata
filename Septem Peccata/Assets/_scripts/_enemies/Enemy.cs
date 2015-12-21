@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour {
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            if(canAtack) main.temptation++;
+            if(canAtack) main.Temptation++;
         }
 
         if (col.gameObject.CompareTag("crucifix") && main.playerAttacking)

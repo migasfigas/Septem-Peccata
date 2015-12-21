@@ -8,7 +8,7 @@ public class InteractiveObject : MonoBehaviour {
     public FirstPersonController player;
     bool colliding = false;
 
-    public Main.CurrentQuest questObject = Main.CurrentQuest.none;
+    public Main.QuestType questObject = Main.QuestType.none;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +26,11 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E) && colliding)
         {
-            if(!main.chatting && main.activeQuest == Main.CurrentQuest.lamp)
+            if(!main.Chatting && main.ActiveQuest == Main.QuestType.lamp)
             {
 
                 interactText.SetActive(false);
-                main.selfQuest.Done = true;
+                main.LampQuest.Done = true;
 
                 player.lamp.SetActive(true);
                 player.candleLight.enabled = false;
@@ -39,10 +39,10 @@ public class InteractiveObject : MonoBehaviour {
                 DestroyObject(gameObject);
             }
 
-            else if(main.activeQuest == Main.CurrentQuest.hallway)
+            else if(main.ActiveQuest == Main.QuestType.hallway)
             {
                 interactText.SetActive(false);
-                main.hallwayQuest.Done = true;
+                main.HallwayQuest.Done = true;
 
                 DestroyObject(gameObject);
             }

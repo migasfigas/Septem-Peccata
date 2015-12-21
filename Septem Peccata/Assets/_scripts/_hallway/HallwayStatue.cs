@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HallwayStatue : MonoBehaviour {
 
-    public Main main;
+    [SerializeField] private Main main;
+
+    public StatuePuzzle puzzle;
     InteractiveObject final;
     AudioSource audioSource;
 
@@ -15,9 +17,12 @@ public class HallwayStatue : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        if (main.lastDoor <= statues.Length)
+        main = GameObject.Find("main").gameObject.GetComponent<Main>();
+        puzzle = main.GetComponent<StatuePuzzle>();
+
+        if (puzzle.lastDoor <= statues.Length)
         {
-            lastState = main.lastDoor;
+            lastState = puzzle.lastDoor;
 
             audioSource = GetComponentInChildren<AudioSource>();
             lastStatue = (GameObject)Instantiate(statues[lastState], transform.position, Quaternion.Euler(new Vector3(-90, transform.eulerAngles.y, transform.eulerAngles.z)));
@@ -31,16 +36,16 @@ public class HallwayStatue : MonoBehaviour {
                 final.player = GameObject.Find("player").GetComponent<FirstPersonController>();
 
                 final.interactText = main.Canvas.transform.FindChild("interact text").gameObject;
-                main.activeQuest = Main.CurrentQuest.hallway;
+                main.ActiveQuest = Main.QuestType.hallway;
             }
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (main.statue == null)
+        if (puzzle.statue == null)
         {
-            main.statue = lastStatue;
+            puzzle.statue = lastStatue;
         }
     }
 }

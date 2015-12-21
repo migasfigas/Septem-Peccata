@@ -5,7 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
-    public enum CurrentQuest
+    #region GUI
+    [SerializeField] private GameObject canvas;
+    private GameObject HUD, pauseUI;
+    private GameObject questUI;
+    private RectTransform temptationUI;
+    #endregion
+
+    #region Quests
+    public enum QuestType
     {
         none,
         lamp,
@@ -19,25 +27,21 @@ public class Main : MonoBehaviour {
         oldMan
     };
     
-    public CurrentQuest activeQuest;
-    public bool chatting;
-    public int temptation;
+    [SerializeField] private QuestType activeQuest;
+    [SerializeField] private Quest lampQuest;
+    [SerializeField] private Quest hallwayQuest;
 
-    //GUI
-    public GameObject Canvas;
-    private GameObject HUD, pauseUI;
+    [SerializeField] private bool chatting;
+    #endregion
 
-    private GameObject questUI;
-    private RectTransform temptationUI;
 
-    public Quest selfQuest;
-    public Quest hallwayQuest;
-    public Quest currentQuest;
 
-    public bool hadQuest = false;
+    [SerializeField] private int temptation;
+
+    
+
+   
     public bool pause = false;
-
-    public bool questdone = false;
 
     public bool playerAttacking = false;
 
@@ -45,32 +49,50 @@ public class Main : MonoBehaviour {
 
     public int currentLevel;
 
-    //2 7 4 3 6 0 1
-    public int lastDoor = 0; //cada vez que incrementa modifica a estatua
-    public int[] doorSequence = { 2, 7, 4, 3, 6, 0 };
-    public GameObject statue;
-    
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start () {
 
-        activeQuest = CurrentQuest.none;
-        temptation = 0;
+        canvas = transform.FindChild("Canvas").gameObject;
 
-        HUD = Canvas.transform.FindChild("HUD").gameObject;
-        pauseUI = Canvas.transform.FindChild("pause").gameObject;
+        HUD = canvas.transform.FindChild("HUD").gameObject;
+        pauseUI = canvas.transform.FindChild("pause").gameObject;
 
         questUI = HUD.transform.FindChild("quest").gameObject;
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Image>().transform.FindChild("bar").GetComponent<RectTransform>();
 
-        selfQuest = new Quest(this, CurrentQuest.lamp, questUI);
-        hallwayQuest = new Quest(this, CurrentQuest.hallway, questUI);
+        lampQuest = new Quest(this, QuestType.lamp, questUI);
 
         sizeX = temptationUI.sizeDelta.x;
-
-        //debug
-        selfQuest.Done = questdone;
+        activeQuest = QuestType.none;
+        pause = false;
+        playerAttacking = false;       
     }
-	
-	void Update () {
+
+    void OnLevelWasLoaded(int level)
+    {
+        currentLevel = level;
+
+        canvas.transform.FindChild("interact text").gameObject.SetActive(false);
+        chatting = false;
+
+        switch (level)
+        {
+            case 2:
+                lampQuest.Done = true;
+                hallwayQuest = new Quest(this, QuestType.hallway, questUI);
+                gameObject.AddComponent<StatuePuzzle>();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void Update () {
         setUI();
         getInput();
 
@@ -89,14 +111,11 @@ public class Main : MonoBehaviour {
 
         switch(activeQuest)
         {
-            case CurrentQuest.lamp:
-                currentQuest = selfQuest;
-                hadQuest = true;
-                selfQuest.setGUI();
+            case QuestType.lamp:
+                lampQuest.setGUI();
                 break;
 
-            case CurrentQuest.hallway:
-                currentQuest = hallwayQuest;
+            case QuestType.hallway:
                 break;
 
             default:
@@ -104,6 +123,7 @@ public class Main : MonoBehaviour {
         }
     }
 
+    //for fast debugging
     private void getInput()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -129,6 +149,7 @@ public class Main : MonoBehaviour {
             SceneManager.LoadScene(currentLevel+1);
         }
     }
+    
 
     private void onPauseGame()
     {
@@ -150,4 +171,34 @@ public class Main : MonoBehaviour {
         pause = true;
         onPauseGame();
     }
+
+
+    #region Getters & Setters
+
+    public int Temptation
+    {
+        get { return temptation; }
+        set { temptation = value; }
+    }
+
+    public GameObject Canvas
+    {
+        get { return canvas; }
+    }
+
+    public bool Chatting
+    {
+        get { return chatting; }
+        set { chatting = value; }
+    }    
+
+    public QuestType ActiveQuest
+    {
+        get { return activeQuest; }
+        set { activeQuest = value; }
+    }
+
+    public Quest LampQuest { get { return lampQuest; } }
+    public Quest HallwayQuest { get { return hallwayQuest; } }
+    #endregion
 }

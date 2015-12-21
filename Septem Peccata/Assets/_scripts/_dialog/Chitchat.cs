@@ -55,11 +55,11 @@ public class Chitchat {
     {
         //se o jogador decidir interagir com o Chitchat é alterado um booleano na main que indica que o jogador está a falar, ou seja, 
         //não se pode movimentar etc e é ligada a caixa de dialogo
-        if (Input.GetKeyDown(KeyCode.E) && !main.chatting)
+        if (Input.GetKeyDown(KeyCode.E) && !main.Chatting)
         {
             screenText.SetActive(false);
             dialogBox.SetActive(true);
-            main.chatting = true;
+            main.Chatting = true;
         }
 
         /*Se a caixa de diálogo estiver ativa (o jogador está a falar) é lido o input da tecla enter que é usado para prosseguir as mensagens do Chitchat. Dependendo se tem um quest ativo
@@ -70,18 +70,18 @@ public class Chitchat {
             {
                 clicks++;
                 
-                if (clicks != charaterDialog.Count-1 && main.activeQuest == Main.CurrentQuest.none)
+                if (clicks != charaterDialog.Count-1 && main.ActiveQuest == Main.QuestType.none)
                     setText(clicks, (string[])charaterDialog[0]);
                 
-                else if(clicks == charaterDialog.Count-1 && main.activeQuest == Main.CurrentQuest.none)
+                else if(clicks == charaterDialog.Count-1 && main.ActiveQuest == Main.QuestType.none)
                 {
                     clicks = 0;
 
                     dialogBox.SetActive(false);
-                    main.chatting = false;
+                    main.Chatting = false;
 
                     //o jogador aceita o quest e este é guardado na main
-                    main.activeQuest = Main.CurrentQuest.lamp;
+                    main.ActiveQuest = Main.QuestType.lamp;
                 }
 
                 else
@@ -90,7 +90,7 @@ public class Chitchat {
 
             else if (clicks == 0)
             {
-                if (main.activeQuest == Main.CurrentQuest.none)
+                if (main.ActiveQuest == Main.QuestType.none)
                     setText(clicks, (string[])charaterDialog[0]);
                 else
                     setText(0, (string[])charaterDialog[1]);
@@ -109,7 +109,7 @@ public class Chitchat {
         clicks = 0;
 
         dialogBox.SetActive(false);
-        main.chatting = false;
+        main.Chatting = false;
     }
 
     private void setText(int click, string[] text)

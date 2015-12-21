@@ -5,14 +5,14 @@ using UnityEngine.UI;
 public class Quest {
 
     Main main;
-    Main.CurrentQuest quest;
+    Main.QuestType quest;
     GameObject questUI;
 
     //Primeira quest: apanhar a lanterna
     public GameObject lantern;
     private bool done;
 
-    public Quest(Main main, Main.CurrentQuest quest, GameObject questUI)
+    public Quest(Main main, Main.QuestType quest, GameObject questUI)
     {
         this.main = main;
         this.quest = quest;
@@ -31,11 +31,11 @@ public class Quest {
 
     public void setGUI()
     {
-        if (quest != Main.CurrentQuest.none)
+        if (quest != Main.QuestType.none)
         {
             switch (quest)
             {
-                case Main.CurrentQuest.lamp:
+                case Main.QuestType.lamp:
                     questUI.SetActive(true);
                     if (!done) questUI.GetComponent<Text>().text = "Find a lantern.";
                     else
@@ -45,7 +45,7 @@ public class Quest {
                     }
                     break;
 
-                case Main.CurrentQuest.hallway:
+                case Main.QuestType.hallway:
                     break;
 
                 default:
@@ -60,7 +60,7 @@ public class Quest {
 
         if(done)
         {
-            main.activeQuest = Main.CurrentQuest.none;
+            main.ActiveQuest = Main.QuestType.none;
         }
     }
 

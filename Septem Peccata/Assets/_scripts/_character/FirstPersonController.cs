@@ -62,8 +62,7 @@ public class FirstPersonController : MonoBehaviour
     //-------------------------------original code--------------------------------------------//
     public Animator animator = new Animator();
     public Light candleLight;
-
-
+    
     public enum weapon
     {
         none,
@@ -98,9 +97,11 @@ public class FirstPersonController : MonoBehaviour
         m_AudioSource = GetComponent<AudioSource>();
         m_MouseLook.Init(transform, m_Camera.transform);
 
+        main = GameObject.Find("main").gameObject.GetComponent<Main>();
+
         weaponState = weapon.none;
 
-        if (!main.selfQuest.Done)
+        if (!main.LampQuest.Done)
         {
             animator.SetBool("hide lamp", true);
             lamp.gameObject.SetActive(false);
@@ -118,7 +119,7 @@ public class FirstPersonController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!main.chatting)
+        if (!main.Chatting)
             RotateView();
 
         // the jump state needs to read here to make sure it is not missed
@@ -156,7 +157,7 @@ public class FirstPersonController : MonoBehaviour
         float speed = 0;
 
         //se estiver a falar com uma npc não move
-        if (!main.chatting)
+        if (!main.Chatting)
             GetInput(out speed);
 
         // always move along the camera forward as it is the direction that it being aimed at
@@ -318,7 +319,7 @@ public class FirstPersonController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.L) && main.selfQuest.Done)
+        if (Input.GetKeyDown(KeyCode.L) && main.LampQuest.Done)
         {
             animator.SetBool("hide lamp", !animator.GetBool("hide lamp"));
             candleLight.enabled = !candleLight.enabled;
