@@ -166,6 +166,7 @@ public class Main : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.PageDown))
         {
             StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
+            DestroyObject(gameObject);
         }
     }
     

@@ -16,7 +16,6 @@ public class Chitchat {
     private ArrayList charaterDialog = new ArrayList(2);
 
     int clicks = 0;
-    int maxClicks;
 
     //GUI
     private GameObject dialogBox;
@@ -27,6 +26,7 @@ public class Chitchat {
     public Chitchat(Main main, Main.NPCs character, GameObject dialogBox, GameObject screenText)
     {
         this.main = main;
+        clicks = 0;
 
         //definição do chat para cada personagem, como só há uma só há isto bjs (voice would be cool)
         if (character == Main.NPCs.meMyselfAndI)
@@ -44,7 +44,7 @@ public class Chitchat {
 	public void Update () {
 
         //só é lido o input se o jogador se encontrar na área de colisão maior do Chitchat ou quando a caixa de dialogo está ativa
-        if (screenText.activeSelf || dialogBox.activeSelf)
+        if (screenText != null && (screenText.activeSelf || dialogBox.activeSelf))
         {
             GetInput();
         }

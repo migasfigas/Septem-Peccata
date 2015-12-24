@@ -38,7 +38,8 @@ public class CharacterDialog : MonoBehaviour {
     private void OnTriggerExit(Collider col)
     {
         //character.OnTriggerExit(col);
-        Destroy(gameObject);
+        if(!interactText.activeSelf && !main.Chatting)
+            Destroy(gameObject);
     }
 
     public void buttonAccept()
