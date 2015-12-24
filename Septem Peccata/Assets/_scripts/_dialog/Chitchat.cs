@@ -47,7 +47,6 @@ public class Chitchat {
         if (screenText.activeSelf || dialogBox.activeSelf)
         {
             GetInput();
-
         }
     }
 

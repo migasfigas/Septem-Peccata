@@ -10,6 +10,12 @@ public class Main : MonoBehaviour {
     private GameObject HUD, pauseUI;
     private GameObject questUI;
     private RectTransform temptationUI;
+
+    private GameObject loadingBackground;
+    private GameObject loadingText;
+    private int loadProgress = 0;
+
+    private float sizeX = 0;
     #endregion
 
     #region Quests
@@ -34,18 +40,11 @@ public class Main : MonoBehaviour {
     [SerializeField] private bool chatting;
     #endregion
 
-
-
-    [SerializeField] private int temptation;
-
-    
-
-   
+    #region Player stats
+    [SerializeField] private int temptation;   
     public bool pause = false;
-
     public bool playerAttacking = false;
-
-    float sizeX = 0;
+    #endregion
 
     public int currentLevel;
 
@@ -64,6 +63,11 @@ public class Main : MonoBehaviour {
         questUI = HUD.transform.FindChild("quest").gameObject;
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Image>().transform.FindChild("bar").GetComponent<RectTransform>();
 
+        loadingBackground = canvas.transform.Find("loading screen/background").gameObject;
+        loadingText = canvas.transform.Find("loading screen/loading text").gameObject;
+
+        canvas.transform.FindChild("interact text").gameObject.SetActive(false);
+
         lampQuest = new Quest(this, QuestType.lamp, questUI);
 
         sizeX = temptationUI.sizeDelta.x;
@@ -75,12 +79,21 @@ public class Main : MonoBehaviour {
     void OnLevelWasLoaded(int level)
     {
         currentLevel = level;
-
-        canvas.transform.FindChild("interact text").gameObject.SetActive(false);
+        
         chatting = false;
 
         switch (level)
         {
+            case 0:
+                loadingBackground.SetActive(false);
+                loadingText.SetActive(false);
+                DestroyObject(gameObject);
+                break;
+
+            case 1:
+                Start();
+                break;
+
             case 2:
                 lampQuest.Done = true;
                 hallwayQuest = new Quest(this, QuestType.hallway, questUI);
@@ -136,20 +149,49 @@ public class Main : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Home))
         {
-            SceneManager.LoadScene(currentLevel);
+            StartCoroutine(DisplayLoadingScreen(currentLevel));
+            DestroyObject(gameObject);
         }
 
         if(Input.GetKeyDown(KeyCode.Delete))
         {
-            SceneManager.LoadScene(0);
+            StartCoroutine(DisplayLoadingScreen(0));
         }
 
-        if(Input.GetKeyDown(KeyCode.End))
+        if(Input.GetKeyDown(KeyCode.PageUp))
         {
-            SceneManager.LoadScene(currentLevel+1);
+            StartCoroutine(DisplayLoadingScreen(currentLevel+1));
+        }
+
+        if(Input.GetKeyDown(KeyCode.PageDown))
+        {
+            StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
         }
     }
     
+    IEnumerator DisplayLoadingScreen(int level)
+    {
+        loadingBackground.SetActive(true);
+        loadingText.SetActive(true);
+
+        loadingText.GetComponent<Text>().text = "Loading " + loadProgress + "%";
+
+        AsyncOperation async = SceneManager.LoadSceneAsync(level);
+
+        while (!async.isDone)
+        {
+            loadProgress = (int)(async.progress * 100);
+            loadingText.GetComponent<Text>().text = "Loading " + loadProgress + "%";
+
+            yield return null;
+        }
+
+        loadingBackground.SetActive(false);
+        loadingText.SetActive(false);
+        loadProgress = 0;
+
+        currentLevel = level;
+    }
 
     private void onPauseGame()
     {

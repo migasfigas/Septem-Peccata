@@ -8,5 +8,6 @@ public class StatuePuzzle : MonoBehaviour {
     public int[] doorSequence = { 2, 7, 4, 3, 6, 0 };
     public GameObject statue;
     
+    //cenas especificas do nivel
 
 }

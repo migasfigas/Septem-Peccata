@@ -37,6 +37,8 @@ public class OpenDoors : MonoBehaviour
     void Start()
     {
         main = GameObject.Find("main").gameObject.GetComponent<Main>();
+        puzzle = main.GetComponent<StatuePuzzle>();
+        interactText = main.transform.Find("Canvas/interact text").gameObject;
 
         defaultRot = transform.localEulerAngles;
         defautRotGlobal = transform.eulerAngles;
