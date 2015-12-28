@@ -25,7 +25,7 @@ public class HallwayStatue : MonoBehaviour {
             lastState = puzzle.lastDoor;
 
             audioSource = GetComponentInChildren<AudioSource>();
-            lastStatue = (GameObject)Instantiate(statues[lastState], transform.position, Quaternion.Euler(new Vector3(-90, transform.eulerAngles.y, transform.eulerAngles.z)));
+            lastStatue = (GameObject)Instantiate(statues[lastState], transform.position, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z)));
             audioSource.PlayOneShot(audiues[lastState]);
 
             if (lastState == statues.Length - 1)

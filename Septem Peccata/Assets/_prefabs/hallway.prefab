@@ -3521,7 +3521,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3573,7 +3573,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3650,7 +3650,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3701,7 +3701,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3778,7 +3778,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3856,7 +3856,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3907,7 +3907,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -4035,7 +4035,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -4164,7 +4164,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 247f0a306b78bce44afbddb50086d8fd, type: 2}
+  - {fileID: 2100000, guid: 55b7a84b6fc72b34d98fafc5f2d8c006, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -5928,12 +5928,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   statues:
-  - {fileID: 173038, guid: 4450034ed05e07349a4c287d60cdcace, type: 2}
-  - {fileID: 162634, guid: 7ff00bf016306964ca01f0ed52daab25, type: 2}
-  - {fileID: 179282, guid: a0fc09fa2da164442af5426e26739ba3, type: 2}
-  - {fileID: 132576, guid: c1162a05fe5f3174580e84b7aeb00500, type: 2}
-  - {fileID: 173806, guid: e27e4b9ae548a4843b0f753c9eb4203e, type: 2}
+  - {fileID: 188390, guid: 818ec3102ef81a94aaae32ac6bf837d2, type: 2}
+  - {fileID: 174910, guid: 4ce1d56b8047eff4f8c95bc813a73683, type: 2}
+  - {fileID: 132350, guid: f33f0ff177c89974998687900f5f312f, type: 2}
+  - {fileID: 133868, guid: 08e12c4dedd5cc948a28167bf4992c8f, type: 2}
+  - {fileID: 158046, guid: e01f977ccdbe800408d6f471486a68f0, type: 2}
   - {fileID: 137256, guid: ed523391c4219994bae8af946ecfc250, type: 2}
   audiues:
   - {fileID: 8300000, guid: 9d0238ab760f71e4d86de7d62dc6dcce, type: 3}
@@ -6075,6 +6076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 2
   otherDoors:
   - {fileID: 101400}
@@ -6221,6 +6223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 1
   otherDoors:
   - {fileID: 113638}
@@ -6247,6 +6250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 6
   otherDoors:
   - {fileID: 101400}
@@ -6273,6 +6277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 7
   otherDoors:
   - {fileID: 113638}
@@ -6299,6 +6304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 5
   otherDoors:
   - {fileID: 113638}
@@ -6349,6 +6355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 0
   otherDoors:
   - {fileID: 135122}
@@ -6447,6 +6454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 3
   otherDoors:
   - {fileID: 113638}
@@ -6509,6 +6517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   main: {fileID: 0}
+  puzzle: {fileID: 0}
   doorNumber: 4
   otherDoors:
   - {fileID: 101400}
