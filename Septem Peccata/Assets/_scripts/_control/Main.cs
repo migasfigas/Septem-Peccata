@@ -73,7 +73,12 @@ public class Main : MonoBehaviour {
         sizeX = temptationUI.sizeDelta.x;
         activeQuest = QuestType.none;
         pause = false;
-        playerAttacking = false;       
+        playerAttacking = false;
+
+        if (currentLevel == 2) {
+            lampQuest.Done = true;
+            hallwayQuest = new Quest(this, QuestType.hallway, questUI);
+        }
     }
 
     void OnLevelWasLoaded(int level)

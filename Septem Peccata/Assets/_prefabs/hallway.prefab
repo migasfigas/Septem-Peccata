@@ -5935,7 +5935,7 @@ MonoBehaviour:
   - {fileID: 132350, guid: f33f0ff177c89974998687900f5f312f, type: 2}
   - {fileID: 133868, guid: 08e12c4dedd5cc948a28167bf4992c8f, type: 2}
   - {fileID: 158046, guid: e01f977ccdbe800408d6f471486a68f0, type: 2}
-  - {fileID: 137256, guid: ed523391c4219994bae8af946ecfc250, type: 2}
+  - {fileID: 147848, guid: 35c5f485c2a66104ab21c09a716f4ed6, type: 2}
   audiues:
   - {fileID: 8300000, guid: 9d0238ab760f71e4d86de7d62dc6dcce, type: 3}
   - {fileID: 8300000, guid: a04a5575b7a58ab4793711a65265a933, type: 3}
@@ -6259,7 +6259,7 @@ MonoBehaviour:
   - {fileID: 117748}
   - {fileID: 101264}
   - {fileID: 113638}
-  - {fileID: 193272}
+  - {fileID: 142246}
   open: 0
   interactText: {fileID: 0}
   hallwayPrefab: {fileID: 161656}

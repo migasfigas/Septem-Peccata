@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7793b1010fb6f479ef6c1abdc1401f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastDoor: 3
+  lastDoor: 4
   doorSequence: 020000000700000004000000030000000600000000000000
   statue: {fileID: 0}
 --- !u!1001 &1360116131

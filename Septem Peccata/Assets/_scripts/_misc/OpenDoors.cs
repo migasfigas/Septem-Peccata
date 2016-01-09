@@ -81,8 +81,6 @@ public class OpenDoors : MonoBehaviour
                 DestroyObject(building);
                 GetComponent<BoxCollider>().enabled = false;
 
-                
-
                 GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("last door standing");
                 foreach (GameObject target in gameObjects)
                 {
