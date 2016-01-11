@@ -20,6 +20,11 @@ public class InteractiveObject : MonoBehaviour {
 
         if (main != null && interactText != null && player != null && interactText.activeSelf)
             GetInput();
+
+        if(main != null && main.HallwayQuest != null && main.HallwayQuest.Done)
+        {
+            transform.position= Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, -36f), Time.deltaTime);
+        }
 	}
 
     private void GetInput()
@@ -44,7 +49,7 @@ public class InteractiveObject : MonoBehaviour {
                 interactText.SetActive(false);
                 main.HallwayQuest.Done = true;
 
-                DestroyObject(gameObject);
+                //DestroyObject(gameObject);
             }
         }
        

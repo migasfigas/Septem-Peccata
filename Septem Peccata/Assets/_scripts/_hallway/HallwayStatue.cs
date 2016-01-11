@@ -20,9 +20,9 @@ public class HallwayStatue : MonoBehaviour {
         main = GameObject.Find("main").gameObject.GetComponent<Main>();
         puzzle = main.GetComponent<StatuePuzzle>();
 
-        if (puzzle.lastDoor <= statues.Length)
+        if (puzzle.LastDoor <= statues.Length)
         {
-            lastState = puzzle.lastDoor;
+            lastState = puzzle.LastDoor;
 
             audioSource = GetComponentInChildren<AudioSource>();
             lastStatue = (GameObject)Instantiate(statues[lastState], transform.position, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z)));
@@ -43,9 +43,9 @@ public class HallwayStatue : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (puzzle.statue == null)
+        if (puzzle.Statue == null)
         {
-            puzzle.statue = lastStatue;
+            puzzle.Statue = lastStatue;
         }
     }
 }

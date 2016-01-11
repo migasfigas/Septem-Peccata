@@ -231,6 +231,8 @@ MonoBehaviour:
   lastDoor: 4
   doorSequence: 020000000700000004000000030000000600000000000000
   statue: {fileID: 0}
+  nextLevelDoor: {fileID: 0}
+  main: {fileID: 0}
 --- !u!1001 &1360116131
 Prefab:
   m_ObjectHideFlags: 0
@@ -269,6 +271,10 @@ Prefab:
     - target: {fileID: 450756, guid: f170bcb3cc248304b959146aad4130eb, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550046, guid: f170bcb3cc248304b959146aad4130eb, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f170bcb3cc248304b959146aad4130eb, type: 2}
@@ -319,6 +325,10 @@ Prefab:
     - target: {fileID: 185700, guid: 94ab63376f4f65844a9bcb70b64714f0, type: 2}
       propertyPath: m_Name
       value: main
+      objectReference: {fileID: 0}
+    - target: {fileID: 185700, guid: 94ab63376f4f65844a9bcb70b64714f0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94ab63376f4f65844a9bcb70b64714f0, type: 2}

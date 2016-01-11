@@ -13,6 +13,7 @@ public class Main : MonoBehaviour {
 
     private GameObject loadingBackground;
     private GameObject loadingText;
+    private GameObject loadingImage;
     private int loadProgress = 0;
 
     private float sizeX = 0;
@@ -65,6 +66,7 @@ public class Main : MonoBehaviour {
 
         loadingBackground = canvas.transform.Find("loading screen/background").gameObject;
         loadingText = canvas.transform.Find("loading screen/loading text").gameObject;
+        loadingImage = canvas.transform.Find("loading screen/loading image").gameObject;
 
         canvas.transform.FindChild("interact text").gameObject.SetActive(false);
 
@@ -75,6 +77,7 @@ public class Main : MonoBehaviour {
         pause = false;
         playerAttacking = false;
 
+
         if (currentLevel == 2) {
             lampQuest.Done = true;
             hallwayQuest = new Quest(this, QuestType.hallway, questUI);
@@ -83,6 +86,10 @@ public class Main : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
+        loadingBackground.SetActive(false);
+        loadingText.SetActive(false);
+        loadingImage.SetActive(false);
+
         currentLevel = level;
         
         chatting = false;

@@ -107117,6 +107117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: {fileID: 1697954531}
+  scene: 2
 --- !u!4 &2066798826 stripped
 Transform:
   m_PrefabParentObject: {fileID: 446544, guid: 6bae51d75b9463a499921d91487b3603, type: 2}

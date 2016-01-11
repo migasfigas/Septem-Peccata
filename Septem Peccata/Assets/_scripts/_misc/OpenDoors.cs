@@ -99,7 +99,7 @@ public class OpenDoors : MonoBehaviour
             {
                 if (changed)
                 {
-                    puzzle.lastDoor--;
+                    puzzle.LastDoor--;
                     changed = false;
                 }
 
@@ -124,9 +124,9 @@ public class OpenDoors : MonoBehaviour
 
                 transform.position += new Vector3(0.03f, 0, 0);
 
-                if (puzzle.doorSequence.Length >= puzzle.lastDoor && puzzle.doorSequence[puzzle.lastDoor] == doorNumber)
+                if (puzzle.DoorSequence.Length >= puzzle.LastDoor && puzzle.DoorSequence[puzzle.LastDoor] == doorNumber)
                 {
-                    puzzle.lastDoor++;
+                    puzzle.LastDoor++;
                     changed = true;
                 }
                 created = true;
@@ -160,7 +160,7 @@ public class OpenDoors : MonoBehaviour
         closed4ever = true;
         deleted = true;
 
-        puzzle.statue.gameObject.tag = "last door standing";
+        puzzle.Statue.gameObject.tag = "last door standing";
 
         audioSource.Play();
 
