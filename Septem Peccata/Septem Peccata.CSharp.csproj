@@ -80,6 +80,7 @@
     <Compile Include="Assets\_scripts\_character\HeadBob.cs" />
     <Compile Include="Assets\_scripts\_character\MouseLook.cs" />
     <Compile Include="Assets\_scripts\_character\RigidbodyFirstPersonController.cs" />
+    <Compile Include="Assets\_scripts\_control\Falling2UrImpendingDoom.cs" />
     <Compile Include="Assets\_scripts\_control\Main.cs" />
     <Compile Include="Assets\_scripts\_control\Quest.cs" />
     <Compile Include="Assets\_scripts\_control\loadNext.cs" />

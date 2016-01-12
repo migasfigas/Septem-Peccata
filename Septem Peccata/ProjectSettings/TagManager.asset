@@ -12,6 +12,7 @@ TagManager:
   - Fire
   - door
   - last door standing
+  - dead
   layers:
   - Default
   - TransparentFX

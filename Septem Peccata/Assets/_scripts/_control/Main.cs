@@ -24,7 +24,8 @@ public class Main : MonoBehaviour {
     {
         none,
         lamp,
-        hallway
+        hallway,
+        platforms
     };
 
     public enum NPCs
@@ -35,8 +36,7 @@ public class Main : MonoBehaviour {
     };
     
     [SerializeField] private QuestType activeQuest;
-    [SerializeField] private Quest lampQuest;
-    [SerializeField] private Quest hallwayQuest;
+    private Quest lampQuest, hallwayQuest, platformQuest;
 
     [SerializeField] private bool chatting;
     #endregion
@@ -47,15 +47,16 @@ public class Main : MonoBehaviour {
     public bool playerAttacking = false;
     #endregion
 
-    public int currentLevel;
+    [SerializeField] private int currentLevel;
 
     void Awake()
     {
+        //o main nunca é destruido, passa de cena para cena
         DontDestroyOnLoad(gameObject);
     }
 
     void Start () {
-
+        
         canvas = transform.FindChild("Canvas").gameObject;
 
         HUD = canvas.transform.FindChild("HUD").gameObject;
@@ -82,8 +83,14 @@ public class Main : MonoBehaviour {
             lampQuest.Done = true;
             hallwayQuest = new Quest(this, QuestType.hallway, questUI);
         }
+        else if(currentLevel == 3)
+        {
+            lampQuest.Done = true;
+            platformQuest = new Quest(this, QuestType.platforms, questUI);
+        }
     }
 
+    //é chamado quando um novo nivel é carregado (!= start)
     void OnLevelWasLoaded(int level)
     {
         loadingBackground.SetActive(false);
@@ -112,6 +119,11 @@ public class Main : MonoBehaviour {
                 gameObject.AddComponent<StatuePuzzle>();
                 break;
 
+            case 3:
+                DestroyObject(gameObject.GetComponent<StatuePuzzle>());
+                hallwayQuest = new Quest(this, QuestType.hallway, questUI);
+                break;
+
             default:
                 break;
         }
@@ -125,9 +137,7 @@ public class Main : MonoBehaviour {
             PriestDie();
 
         if(Input.GetKey(KeyCode.X))
-        {
             temptation++;
-        }
     }
 
     private void setUI()
@@ -255,5 +265,7 @@ public class Main : MonoBehaviour {
 
     public Quest LampQuest { get { return lampQuest; } }
     public Quest HallwayQuest { get { return hallwayQuest; } }
+
+    public int CurrentLevel { get { return currentLevel; } }
     #endregion
 }
