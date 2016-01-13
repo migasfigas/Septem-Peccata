@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour {
 
     private GameObject menuScreen;
     [SerializeField] private GameObject optionsMenu;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -41,8 +42,8 @@ public class MainMenu : MonoBehaviour {
 
     public void settings()
     {
-        menuScreen.SetActive(false);
-        optionsMenu.SetActive(true);
+        StartCoroutine(Fade(menuScreen, -0.05f));
+        StartCoroutine(Fade(optionsMenu, +0.05f));
     }
 
     public void exit()
@@ -52,8 +53,26 @@ public class MainMenu : MonoBehaviour {
 
     public void optionsQuit()
     {
-        optionsMenu.SetActive(false);
-        menuScreen.SetActive(true);
+        StartCoroutine(Fade(optionsMenu, -0.05f));
+        StartCoroutine(Fade(menuScreen, +0.05f));
+    }
+
+    IEnumerator Fade(GameObject group, float incrementation)
+    {
+        bool fade = true;
+
+        while (fade)
+        {
+            group.GetComponent<CanvasGroup>().alpha += incrementation;
+
+            if (group.GetComponent<CanvasGroup>().alpha <= 0 || group.GetComponent<CanvasGroup>().alpha >= 1)
+            {
+                Debug.Log(group.GetComponent<CanvasGroup>().alpha);
+                fade = false;
+            }
+
+            yield return null;
+        }
     }
 
     IEnumerator DisplayLoadingScreen(int level)

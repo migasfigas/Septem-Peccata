@@ -223,16 +223,16 @@ public class Main : MonoBehaviour {
     private void onPauseGame()
     {
         Time.timeScale = 0;
-        HUD.SetActive(false);
-        pauseUI.SetActive(true);
+        StartCoroutine(Fade(HUD, -0.05f));
+        StartCoroutine(Fade(pauseUI, +0.05f));
         Cursor.visible = true;
     }
 
     public void onResumeGame()
     {
         Time.timeScale = 1;
-        HUD.SetActive(true);
-        pauseUI.SetActive(false);
+        StartCoroutine(Fade(pauseUI, -0.05f));
+        StartCoroutine(Fade(HUD, +0.05f));
         Cursor.visible = false;
     }
 
@@ -241,6 +241,23 @@ public class Main : MonoBehaviour {
         pauseUI.transform.FindChild("text").GetComponent<Text>().text = "is dead";
         pause = true;
         onPauseGame();
+    }
+
+    IEnumerator Fade(GameObject group, float incrementation)
+    {
+        bool fade = true;
+
+        while (fade)
+        {
+            group.GetComponent<CanvasGroup>().alpha += incrementation;
+
+            if (group.GetComponent<CanvasGroup>().alpha <= 0 || group.GetComponent<CanvasGroup>().alpha >= 1)
+            {
+                fade = false;
+            }
+
+            yield return null;
+        }
     }
 
 
