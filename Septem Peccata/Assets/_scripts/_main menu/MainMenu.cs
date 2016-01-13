@@ -9,10 +9,15 @@ public class MainMenu : MonoBehaviour {
     private GameObject loadText, loadImage;
     private int loadProgress = 0;
 
+    private GameObject menuScreen;
+    [SerializeField] private GameObject optionsMenu;
+
 	// Use this for initialization
 	void Start () {
 
-       
+        menuScreen = GameObject.Find("menu screen").gameObject;
+        if(optionsMenu == null)
+            optionsMenu = GameObject.Find("options screen").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -36,12 +41,19 @@ public class MainMenu : MonoBehaviour {
 
     public void settings()
     {
-        
+        menuScreen.SetActive(false);
+        optionsMenu.SetActive(true);
     }
 
     public void exit()
     {
         Application.Quit();
+    }
+
+    public void optionsQuit()
+    {
+        optionsMenu.SetActive(false);
+        menuScreen.SetActive(true);
     }
 
     IEnumerator DisplayLoadingScreen(int level)

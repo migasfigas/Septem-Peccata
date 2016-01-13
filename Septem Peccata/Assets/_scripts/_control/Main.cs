@@ -78,6 +78,7 @@ public class Main : MonoBehaviour {
         pause = false;
         playerAttacking = false;
 
+        Cursor.visible = false;
 
         if (currentLevel == 2) {
             lampQuest.Done = true;
@@ -93,9 +94,12 @@ public class Main : MonoBehaviour {
     //é chamado quando um novo nivel é carregado (!= start)
     void OnLevelWasLoaded(int level)
     {
-        loadingBackground.SetActive(false);
-        loadingText.SetActive(false);
-        loadingImage.SetActive(false);
+        if (loadingBackground!=null)
+        {
+            loadingBackground.SetActive(false);
+            loadingText.SetActive(false);
+            loadingImage.SetActive(false);
+        }
 
         currentLevel = level;
         
@@ -221,13 +225,15 @@ public class Main : MonoBehaviour {
         Time.timeScale = 0;
         HUD.SetActive(false);
         pauseUI.SetActive(true);
+        Cursor.visible = true;
     }
 
-    private void onResumeGame()
+    public void onResumeGame()
     {
         Time.timeScale = 1;
         HUD.SetActive(true);
         pauseUI.SetActive(false);
+        Cursor.visible = false;
     }
 
     private void PriestDie()
