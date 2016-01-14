@@ -3,19 +3,23 @@ using System.Collections;
 
 public class InteractiveObject : MonoBehaviour {
 
-    public Main main;
-    public GameObject interactText;
-    public FirstPersonController player;
-    bool colliding = false;
+    [SerializeField] private Main main;
+    [SerializeField] private GameObject interactText;
+    [SerializeField] private FirstPersonController player;
+    [SerializeField] private Main.QuestType questObject = Main.QuestType.none;
 
-    public Main.QuestType questObject = Main.QuestType.none;
-
-	// Use this for initialization
+    private bool colliding = false;
+    
 	void Start () {
-	
+
+        if (main == null || player == null || interactText == null)
+        {
+            main = GameObject.Find("main").GetComponent<Main>();
+            player = GameObject.Find("player").GetComponent<FirstPersonController>();
+            interactText = GameObject.Find("main/Canvas/interact text").gameObject;
+        }
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
         if (main != null && interactText != null && player != null && interactText.activeSelf)
@@ -31,28 +35,41 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E) && colliding)
         {
-            if(!main.Chatting && main.ActiveQuest == Main.QuestType.lamp)
+            switch(gameObject.tag)
             {
+                case "lamp":
+                    if(!main.Chatting && main.ActiveQuest == Main.QuestType.lamp)
+                    {
+                        interactText.SetActive(false);
+                        main.LampQuest.Done = true;
 
-                interactText.SetActive(false);
-                main.LampQuest.Done = true;
+                        player.lamp.SetActive(true);
+                        player.candleLight.enabled = false;
+                        player.animator.SetTrigger("has lamp");
 
-                player.lamp.SetActive(true);
-                player.candleLight.enabled = false;
-                player.animator.SetTrigger("has lamp");
+                        DestroyObject(gameObject);
+                    }
+                    break;
 
-                DestroyObject(gameObject);
-            }
+                case "statue":
+                    if(main.ActiveQuest == Main.QuestType.hallway)
+                    {
+                        interactText.SetActive(false);
+                        main.HallwayQuest.Done = true;
+                    }
+                    break;
 
-            else if(main.ActiveQuest == Main.QuestType.hallway)
-            {
-                interactText.SetActive(false);
-                main.HallwayQuest.Done = true;
+                case "healing statue":
+                    if (main.Temptation - 30 > 0)
+                        main.Temptation -= 30;
+                    else
+                        main.Temptation = 0;
+                    break;
 
-                //DestroyObject(gameObject);
+                default:
+                    break;
             }
         }
-       
     }
 
     public void OnTriggerEnter(Collider col)

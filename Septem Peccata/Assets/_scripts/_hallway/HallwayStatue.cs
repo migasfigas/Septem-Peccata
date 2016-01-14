@@ -32,10 +32,6 @@ public class HallwayStatue : MonoBehaviour {
             {
                 final = lastStatue.GetComponent<InteractiveObject>();
 
-                final.main = GameObject.Find("main").gameObject.GetComponent<Main>();
-                final.player = GameObject.Find("player").gameObject.GetComponent<FirstPersonController>();
-
-                final.interactText = main.Canvas.transform.FindChild("interact text").gameObject;
                 main.ActiveQuest = Main.QuestType.hallway;
             }
         }

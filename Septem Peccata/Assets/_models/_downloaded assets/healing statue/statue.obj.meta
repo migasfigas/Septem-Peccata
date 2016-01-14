@@ -1,39 +1,21 @@
 fileFormatVersion: 2
-guid: 12b340d4f3cecea4c9012c4820f458ef
+guid: b817bdcc64ceae94b8efa0481fcad2f7
+timeCreated: 1452714652
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: polySurface337
-    100004: polySurface340
-    100006: polySurface342
-    100008: polySurface349
-    100010: polySurface351
-    100012: polySurface355
-    100014: polySurface366
-    100016: polySurface370
-    400000: //RootNode
-    400002: polySurface337
-    400004: polySurface340
-    400006: polySurface342
-    400008: polySurface349
-    400010: polySurface351
-    400012: polySurface355
-    400014: polySurface366
-    400016: polySurface370
-    2300000: polySurface370
-    2300002: //RootNode
-    3300000: polySurface370
-    3300002: //RootNode
-    4300000: polySurface370
-    4300002: angelStatue
-    4300004: angelStatue_mesh
-    6400000: //RootNode
-    9500000: //RootNode
+    100000: default
+    100002: //RootNode
+    400000: default
+    400002: //RootNode
+    2300000: default
+    3300000: default
+    4300000: default
   materials:
     importMaterials: 1
-    materialName: 1
-    materialSearch: 0
+    materialName: 0
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -54,9 +36,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.5
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -68,11 +50,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -88,7 +70,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

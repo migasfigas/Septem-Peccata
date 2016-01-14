@@ -231,6 +231,7 @@ public class Main : MonoBehaviour {
     public void onResumeGame()
     {
         Time.timeScale = 1;
+        pause = false;
         StartCoroutine(Fade(pauseUI, -0.05f));
         StartCoroutine(Fade(HUD, +0.05f));
         Cursor.visible = false;

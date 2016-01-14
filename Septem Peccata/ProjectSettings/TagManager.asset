@@ -7,12 +7,13 @@ TagManager:
   - NPC
   - crucifix
   - holy water
-  - self quest
+  - lamp
   - hallway quest
   - Fire
   - door
   - last door standing
   - dead
+  - healing statue
   layers:
   - Default
   - TransparentFX

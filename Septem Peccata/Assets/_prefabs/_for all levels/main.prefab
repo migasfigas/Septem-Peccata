@@ -42,13 +42,14 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22449466}
+  - 225: {fileID: 22504556}
   m_Layer: 5
   m_Name: pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &113464
 GameObject:
   m_ObjectHideFlags: 1
@@ -196,6 +197,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22467420}
+  - 225: {fileID: 22599328}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -514,7 +516,7 @@ MonoBehaviour:
   temptation: 0
   pause: 0
   playerAttacking: 0
-  currentLevel: 3
+  currentLevel: 1
 --- !u!114 &11435142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1321,6 +1323,28 @@ RectTransform:
   m_AnchoredPosition: {x: -260, y: -180}
   m_SizeDelta: {x: 990, y: 432}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &22504556
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111270}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &22599328
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185790}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
