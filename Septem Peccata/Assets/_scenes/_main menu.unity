@@ -1135,6 +1135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 1606605928}
+  resolution: 0
+  qualitySettings: 0
+  music: 1
+  sound: 1
 --- !u!1 &698016880
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,11 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
-public class Main : MonoBehaviour {
+public class Main : MonoBehaviour
+{
 
     #region GUI
-    [SerializeField] private GameObject canvas;
+    [SerializeField]
+    private GameObject canvas;
     private GameObject HUD, pauseUI;
     private GameObject questUI;
     private RectTransform temptationUI;
@@ -15,6 +18,12 @@ public class Main : MonoBehaviour {
     private GameObject loadingText;
     private GameObject loadingImage;
     private int loadProgress = 0;
+
+    private GameObject optionsMenu;
+    private GameObject pauseMenu;
+
+    private GameObject inventoryIcon;
+    private GameObject inventoryDropdown;
 
     private float sizeX = 0;
     #endregion
@@ -34,20 +43,24 @@ public class Main : MonoBehaviour {
         meMyselfAndI,
         oldMan
     };
-    
-    [SerializeField] private QuestType activeQuest;
+
+    [SerializeField]
+    private QuestType activeQuest;
     private Quest lampQuest, hallwayQuest, platformQuest;
 
-    [SerializeField] private bool chatting;
+    [SerializeField]
+    private bool chatting;
     #endregion
 
     #region Player stats
-    [SerializeField] private int temptation;   
+    [SerializeField]
+    private int temptation;
     public bool pause = false;
     public bool playerAttacking = false;
     #endregion
 
-    [SerializeField] private int currentLevel;
+    [SerializeField]
+    private int currentLevel;
 
     void Awake()
     {
@@ -55,12 +68,18 @@ public class Main : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start () {
-        
+    void Start()
+    {
+
         canvas = transform.FindChild("Canvas").gameObject;
 
         HUD = canvas.transform.FindChild("HUD").gameObject;
+        inventoryIcon = HUD.transform.FindChild("inventory").gameObject;
+        inventoryDropdown = inventoryIcon.transform.FindChild("Dropdown").gameObject;
+
         pauseUI = canvas.transform.FindChild("pause").gameObject;
+        optionsMenu = pauseUI.transform.FindChild("options screen").gameObject;
+        pauseMenu = pauseUI.transform.FindChild("menu screen").gameObject;
 
         questUI = HUD.transform.FindChild("quest").gameObject;
         temptationUI = HUD.transform.FindChild("temptation").GetComponent<Image>().transform.FindChild("bar").GetComponent<RectTransform>();
@@ -70,6 +89,8 @@ public class Main : MonoBehaviour {
         loadingImage = canvas.transform.Find("loading screen/loading image").gameObject;
 
         canvas.transform.FindChild("interact text").gameObject.SetActive(false);
+        inventoryDropdown.SetActive(false);
+
 
         lampQuest = new Quest(this, QuestType.lamp, questUI);
 
@@ -80,11 +101,12 @@ public class Main : MonoBehaviour {
 
         Cursor.visible = false;
 
-        if (currentLevel == 2) {
+        if (currentLevel == 2)
+        {
             lampQuest.Done = true;
             hallwayQuest = new Quest(this, QuestType.hallway, questUI);
         }
-        else if(currentLevel == 3)
+        else if (currentLevel == 3)
         {
             lampQuest.Done = true;
             platformQuest = new Quest(this, QuestType.platforms, questUI);
@@ -94,15 +116,17 @@ public class Main : MonoBehaviour {
     //é chamado quando um novo nivel é carregado (!= start)
     void OnLevelWasLoaded(int level)
     {
-        if (loadingBackground!=null)
+        if (loadingBackground != null)
         {
             loadingBackground.SetActive(false);
             loadingText.SetActive(false);
             loadingImage.SetActive(false);
         }
 
+        SaveGame();
+
         currentLevel = level;
-        
+
         chatting = false;
 
         switch (level)
@@ -133,22 +157,23 @@ public class Main : MonoBehaviour {
         }
     }
 
-    void Update () {
+    void Update()
+    {
         setUI();
         getInput();
 
         if (temptation >= 100)
             PriestDie();
 
-        if(Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.X))
             temptation++;
     }
 
     private void setUI()
     {
-        temptationUI.sizeDelta = new Vector2(sizeX * temptation/100, temptationUI.sizeDelta.y);
+        temptationUI.sizeDelta = new Vector2(sizeX * temptation / 100, temptationUI.sizeDelta.y);
 
-        switch(activeQuest)
+        switch (activeQuest)
         {
             case QuestType.lamp:
                 lampQuest.setGUI();
@@ -165,7 +190,8 @@ public class Main : MonoBehaviour {
     //for fast debugging
     private void getInput()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && 
+            ((pause && pauseUI.GetComponent<CanvasGroup>().alpha == 1) || (!pause && pauseUI.GetComponent<CanvasGroup>().alpha == 0)))
         {
             pause = !pause;
 
@@ -173,29 +199,40 @@ public class Main : MonoBehaviour {
             else onResumeGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.Home))
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            inventoryDropdown.SetActive(!inventoryDropdown.activeSelf);
+
+            if (lampQuest != null && lampQuest.Done)
+                inventoryDropdown.GetComponent<Text>().text = "lamp\n";
+
+            if (hallwayQuest != null && hallwayQuest.Done)
+                inventoryDropdown.GetComponent<Text>().text += "key\n";
+        }
+
+        if (Input.GetKeyDown(KeyCode.Home))
         {
             StartCoroutine(DisplayLoadingScreen(currentLevel));
             DestroyObject(gameObject);
         }
 
-        if(Input.GetKeyDown(KeyCode.Delete))
+        if (Input.GetKeyDown(KeyCode.Delete))
         {
             StartCoroutine(DisplayLoadingScreen(0));
         }
 
-        if(Input.GetKeyDown(KeyCode.PageUp))
+        if (Input.GetKeyDown(KeyCode.PageUp))
         {
-            StartCoroutine(DisplayLoadingScreen(currentLevel+1));
+            StartCoroutine(DisplayLoadingScreen(currentLevel + 1));
         }
 
-        if(Input.GetKeyDown(KeyCode.PageDown))
+        if (Input.GetKeyDown(KeyCode.PageDown))
         {
             StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
             DestroyObject(gameObject);
         }
     }
-    
+
     IEnumerator DisplayLoadingScreen(int level)
     {
         loadingBackground.SetActive(true);
@@ -223,8 +260,12 @@ public class Main : MonoBehaviour {
     private void onPauseGame()
     {
         Time.timeScale = 0;
-        StartCoroutine(Fade(HUD, -0.05f));
-        StartCoroutine(Fade(pauseUI, +0.05f));
+
+        StartCoroutine(Fade(HUD, -0.05f, false));
+        StartCoroutine(Fade(pauseUI, +0.05f, false));
+        StartCoroutine(Fade(pauseMenu, +0.05f, true));
+        StartCoroutine(Fade(optionsMenu, -0.05f, true));
+
         Cursor.visible = true;
     }
 
@@ -232,9 +273,31 @@ public class Main : MonoBehaviour {
     {
         Time.timeScale = 1;
         pause = false;
-        StartCoroutine(Fade(pauseUI, -0.05f));
-        StartCoroutine(Fade(HUD, +0.05f));
+
+        StartCoroutine(Fade(pauseUI, -0.05f, false));
+        StartCoroutine(Fade(pauseMenu, -0.05f, true));
+        StartCoroutine(Fade(optionsMenu, -0.05f, true));
+        StartCoroutine(Fade(HUD, +0.05f, false));
+        
         Cursor.visible = false;
+    }
+
+    public void onOptionsGame()
+    {
+        StartCoroutine(Fade(pauseMenu, -0.05f, true));
+        StartCoroutine(Fade(optionsMenu, +0.05f, true));
+    }
+
+    public void onOptionsBack()
+    {
+        StartCoroutine(Fade(pauseMenu, 0.05f, true));
+        StartCoroutine(Fade(optionsMenu, -0.05f, true));
+    }
+
+    public void exit()
+    {
+        
+        StartCoroutine(DisplayLoadingScreen(0));
     }
 
     private void PriestDie()
@@ -244,9 +307,20 @@ public class Main : MonoBehaviour {
         onPauseGame();
     }
 
-    IEnumerator Fade(GameObject group, float incrementation)
+    IEnumerator Fade(GameObject group, float incrementation, bool op)
     {
         bool fade = true;
+
+        if (op)
+        {
+            foreach (Transform t in group.transform)
+            {
+                if (incrementation > 0)
+                    t.gameObject.SetActive(true);
+                else
+                    t.gameObject.SetActive(false);
+            }
+        }
 
         while (fade)
         {
@@ -261,6 +335,13 @@ public class Main : MonoBehaviour {
         }
     }
 
+    private void SaveGame()
+    {
+        StreamWriter sw = new StreamWriter("savegame.txt");
+        sw.WriteLine(currentLevel);
+
+        sw.Close();
+    }
 
     #region Getters & Setters
 
@@ -279,7 +360,7 @@ public class Main : MonoBehaviour {
     {
         get { return chatting; }
         set { chatting = value; }
-    }    
+    }
 
     public QuestType ActiveQuest
     {

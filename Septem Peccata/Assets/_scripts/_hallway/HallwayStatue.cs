@@ -31,7 +31,7 @@ public class HallwayStatue : MonoBehaviour {
             if (lastState == statues.Length - 1)
             {
                 final = lastStatue.GetComponent<InteractiveObject>();
-
+                final.tag = "statue";
                 main.ActiveQuest = Main.QuestType.hallway;
             }
         }
