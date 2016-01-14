@@ -96,6 +96,9 @@
     <Compile Include="Assets\_scripts\_misc\DoorClose.cs" />
     <Compile Include="Assets\_scripts\_misc\FlickeringLight.cs" />
     <Compile Include="Assets\_scripts\_misc\OpenDoors.cs" />
+    <Compile Include="Assets\_scripts\_platfroms\PlatformCollision.cs" />
+    <Compile Include="Assets\_scripts\_platfroms\ShakingPlatform.cs" />
+    <Compile Include="Assets\_scripts\_platfroms\TouchMyOrb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

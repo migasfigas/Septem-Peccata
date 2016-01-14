@@ -14,6 +14,9 @@ TagManager:
   - last door standing
   - dead
   - healing statue
+  - statue
+  - orb
+  - tiny platform
   layers:
   - Default
   - TransparentFX

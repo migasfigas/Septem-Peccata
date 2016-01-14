@@ -70,7 +70,6 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-
         canvas = transform.FindChild("Canvas").gameObject;
 
         HUD = canvas.transform.FindChild("HUD").gameObject;
@@ -150,6 +149,7 @@ public class Main : MonoBehaviour
             case 3:
                 DestroyObject(gameObject.GetComponent<StatuePuzzle>());
                 hallwayQuest = new Quest(this, QuestType.hallway, questUI);
+                GameObject.Find("player/FirstPersonCharacter").GetComponent<ShakingPlatform>().enabled = true;
                 break;
 
             default:
@@ -219,6 +219,7 @@ public class Main : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Delete))
         {
             StartCoroutine(DisplayLoadingScreen(0));
+            DestroyObject(gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.PageUp))
@@ -296,8 +297,8 @@ public class Main : MonoBehaviour
 
     public void exit()
     {
-        
         StartCoroutine(DisplayLoadingScreen(0));
+        DestroyObject(gameObject);
     }
 
     private void PriestDie()

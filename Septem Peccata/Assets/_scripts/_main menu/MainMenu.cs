@@ -113,15 +113,11 @@ public class MainMenu : MonoBehaviour {
             }
 
             yield return null;
-        }
-
-        
+        }   
     }
 
     IEnumerator DisplayLoadingScreen(int level)
     {
-        Debug.Log("Hello");
-
         loadBackground.SetActive(true);
         loadText.SetActive(true);
         loadImage.SetActive(true);

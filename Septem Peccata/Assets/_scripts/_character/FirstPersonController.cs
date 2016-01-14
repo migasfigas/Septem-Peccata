@@ -241,7 +241,6 @@ public class FirstPersonController : MonoBehaviour
         m_FootstepSounds[0] = m_AudioSource.clip;
     }
 
-
     private void UpdateCameraPosition(float speed)
     {
         Vector3 newCameraPosition;
@@ -262,9 +261,9 @@ public class FirstPersonController : MonoBehaviour
             newCameraPosition = m_Camera.transform.localPosition;
             newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
         }
+
         m_Camera.transform.localPosition = newCameraPosition;
     }
-
 
     private void GetInput(out float speed)
     {
@@ -280,17 +279,13 @@ public class FirstPersonController : MonoBehaviour
         if (m_Input.sqrMagnitude > 1)
         {
             m_Input.Normalize();
-        }
-
-        
+        }        
 
         AnimatingAnimator(horizontal, vertical, speed);
-        Attack();
     }
 
     private void AnimatingAnimator(float horizontal, float vertical, float speed)
     {
-
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetFloat("forward", speed / 5);
@@ -338,29 +333,6 @@ public class FirstPersonController : MonoBehaviour
             animator.SetBool("attack", false);
             main.playerAttacking = false;
         }
-    }
-
-    private void Attack()
-    {
-        //if (currentWeaponState != weapon.none)
-        //{
-        //    //jogador perde sanidade quando ataca? how 2 do this
-        //    switch (currentWeaponState)
-        //    {
-        //        case weapon.crucifix:
-        //            transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/crucifix").gameObject.GetComponent<SphereCollider>().enabled = animator.GetBool("attack");
-        //            break;
-
-        //        case weapon.holyWater:
-        //            transform.Find("FirstPersonCharacter/priest/Padre_-_Make_Human/object_bone/holy_water").gameObject.GetComponent<CapsuleCollider>().enabled = animator.GetBool("attack");
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
-
-        
     }
 
     private void RotateView()
