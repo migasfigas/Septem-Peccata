@@ -35,8 +35,6 @@ public class loadNext : MonoBehaviour {
 
     IEnumerator DisplayLoadingScreen(int level)
     {
-        Debug.Log("Hello");
-
         interactText.SetActive(false);
         loadBackground.SetActive(true);
         loadText.SetActive(true);

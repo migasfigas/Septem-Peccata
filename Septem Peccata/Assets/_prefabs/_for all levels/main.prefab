@@ -529,7 +529,7 @@ GameObject:
   - 82: {fileID: 8288084}
   m_Layer: 2
   m_Name: main
-  m_TagString: Untagged
+  m_TagString: main
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -993,7 +993,7 @@ MonoBehaviour:
   temptation: 0
   pause: 0
   playerAttacking: 0
-  currentLevel: 1
+  currentLevel: 3
 --- !u!114 &11427386
 MonoBehaviour:
   m_ObjectHideFlags: 1

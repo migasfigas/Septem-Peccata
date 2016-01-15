@@ -17,6 +17,8 @@ TagManager:
   - statue
   - orb
   - tiny platform
+  - self quest
+  - main
   layers:
   - Default
   - TransparentFX

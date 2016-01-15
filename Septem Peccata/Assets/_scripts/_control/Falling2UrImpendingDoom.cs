@@ -22,7 +22,10 @@ public class Falling2UrImpendingDoom : MonoBehaviour {
         if (col.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(main.CurrentLevel);
-            DestroyObject(main.gameObject);
+            Main[] mains = GameObject.FindObjectsOfType<Main>();
+
+            foreach (Main m in mains)
+                Destroy(m.gameObject);
         }
     }
 }

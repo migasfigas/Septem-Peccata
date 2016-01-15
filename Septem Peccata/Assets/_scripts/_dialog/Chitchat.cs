@@ -72,8 +72,6 @@ public class Chitchat {
         ou não, irão ser apresentadas as mensagens de dialogo de sugestão do quest ou a mensagem default. Quando ainda não existem cliques é apresentada a primeira mensagem do array (clicks = 0)*/
         if (dialogBox.activeSelf)
         {
-            Debug.Log(suggestionDialog.Length);
-
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 clicks++;

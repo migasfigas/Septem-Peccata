@@ -69,12 +69,12 @@ public class Main : MonoBehaviour
     {
         //o main nunca é destruido, passa de cena para cena
         DontDestroyOnLoad(gameObject);
-
-        Time.timeScale = 1;
     }
 
     void Start()
     {
+        Time.timeScale = 1;
+
         canvas = transform.FindChild("Canvas").gameObject;
 
         HUD = canvas.transform.FindChild("HUD").gameObject;
@@ -224,28 +224,31 @@ public class Main : MonoBehaviour
             DestroyObject(gameObject);
         }
 
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-            StartCoroutine(DisplayLoadingScreen(currentLevel));
-            DestroyObject(gameObject);
-        }
+        #region For Debugging Purposes
+        //DEBUG
+        //if (Input.GetKeyDown(KeyCode.Home))
+        //{
+        //    StartCoroutine(DisplayLoadingScreen(currentLevel));
+        //    DestroyObject(gameObject);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            StartCoroutine(DisplayLoadingScreen(0));
-            DestroyObject(gameObject);
-        }
+        //if (Input.GetKeyDown(KeyCode.Delete))
+        //{
+        //    StartCoroutine(DisplayLoadingScreen(0));
+        //    DestroyObject(gameObject);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.PageUp))
-        {
-            StartCoroutine(DisplayLoadingScreen(currentLevel + 1));
-        }
+        //if (Input.GetKeyDown(KeyCode.PageUp))
+        //{
+        //    StartCoroutine(DisplayLoadingScreen(currentLevel + 1));
+        //}
 
-        if (Input.GetKeyDown(KeyCode.PageDown))
-        {
-            StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
-            DestroyObject(gameObject);
-        }
+        //if (Input.GetKeyDown(KeyCode.PageDown))
+        //{
+        //    StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
+        //    DestroyObject(gameObject);
+        //}
+        #endregion
     }
 
     IEnumerator DisplayLoadingScreen(int level)

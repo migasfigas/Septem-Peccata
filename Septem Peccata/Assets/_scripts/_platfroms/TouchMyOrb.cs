@@ -47,6 +47,7 @@ public class TouchMyOrb : MonoBehaviour {
         if(col.CompareTag("Player"))
         {
             StartCoroutine(FadeOrb());
+            nextCheckpoint.GetComponent<AudioSource>().Play();
             colliding = true;
         }
     }

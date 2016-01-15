@@ -68,7 +68,6 @@ public class OpenDoors : MonoBehaviour
         {
             //Open door
             transform.localEulerAngles = Vector3.Slerp(transform.localEulerAngles, openRot, Time.deltaTime * smooth);
-            
         }
 
         else if(!open && transform.localEulerAngles.y < defaultRot.y)
@@ -172,6 +171,7 @@ public class OpenDoors : MonoBehaviour
         {
             open = false;
             destroy = true;
+            puzzle.Statue.gameObject.tag = "last door standing";
         }
     }
 }
