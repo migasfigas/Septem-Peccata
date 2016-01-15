@@ -116,6 +116,11 @@ public class Main : MonoBehaviour
             lampQuest.Done = true;
             platformQuest = new Quest(this, QuestType.platforms, questUI);
         }
+
+        else if(currentLevel == 4)
+        {
+            lampQuest.Done = true;
+        }
     }
 
     //é chamado quando um novo nivel é carregado (!= start)
@@ -158,6 +163,9 @@ public class Main : MonoBehaviour
                 DestroyObject(gameObject.GetComponent<StatuePuzzle>());
                 hallwayQuest = new Quest(this, QuestType.hallway, questUI);
                 GameObject.Find("player/FirstPersonCharacter").GetComponent<ShakingPlatform>().enabled = true;
+                break;
+
+            case 4:
                 break;
 
             default:
