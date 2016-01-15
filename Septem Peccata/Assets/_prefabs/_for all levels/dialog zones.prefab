@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &171350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 444016}
-  m_Layer: 0
-  m_Name: collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &195836
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,33 +13,20 @@ GameObject:
   m_Layer: 0
   m_Name: dialog zones
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &444016
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 171350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 463284}
-  m_RootOrder: 0
 --- !u!4 &463284
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195836}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.17, z: 4.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 444016}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: -15.08, y: 1.7, z: 23.02}
+  m_LocalScale: {x: 1.9124324, y: 1, z: 1}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!65 &6528736
@@ -67,8 +39,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.1859703, y: 0.63937473, z: 1}
-  m_Center: {x: 3.0929852, y: -0.6803125, z: 0}
+  m_Size: {x: 11.549714, y: 0.63937473, z: 1}
+  m_Center: {x: 5.274858, y: -0.6803125, z: 0}
 --- !u!114 &11459826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,6 +56,12 @@ MonoBehaviour:
   currentChar: 1
   interactText: {fileID: 0}
   dialogBox: {fileID: 0}
+  suggestionDialog:
+  - 'I better find some light...
+
+    (Press enter to continue)'
+  doneDialog:
+  - Press L to turn it on.
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

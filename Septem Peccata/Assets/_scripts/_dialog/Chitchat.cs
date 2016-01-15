@@ -10,8 +10,9 @@ public class Chitchat {
 
     //Texto da primeira personagem.
     private ArrayList selfDialog = new ArrayList(2);
-    private string[] suggestionDialog = { "It's dark in here, I should find some light.\n(press enter)" };
-    private string[] doneDialog = { "press L to turn on the candle." };
+    private string[] suggestionDialog;
+    private string[] doneDialog;
+    Main.NPCs npc;
 
     private ArrayList charaterDialog = new ArrayList(2);
 
@@ -22,27 +23,33 @@ public class Chitchat {
     private GameObject screenText;
 
     private Text dialogText;
-  
-    public Chitchat(Main main, Main.NPCs character, GameObject dialogBox, GameObject screenText)
+    public bool chatDone = false;
+
+    public Chitchat(Main main, Main.NPCs character, GameObject dialogBox, GameObject screenText, string[] suggestionDialog, string[]doneDialog)
     {
         this.main = main;
         clicks = 0;
 
+        this.npc = character;
+
         //definição do chat para cada personagem, como só há uma só há isto bjs (voice would be cool)
-        if (character == Main.NPCs.meMyselfAndI)
-            charaterDialog = selfDialog;
+
+        charaterDialog = selfDialog;
 
         this.dialogBox = dialogBox;
         this.screenText = screenText;
 
         dialogText = dialogBox.transform.FindChild("dialog text").GetComponent<Text>();
 
+        this.suggestionDialog = suggestionDialog;
+        this.doneDialog = doneDialog;
+
         selfDialog.Add(suggestionDialog);
         selfDialog.Add(doneDialog);
     }
 	
 	public void Update () {
-
+        
         //só é lido o input se o jogador se encontrar na área de colisão maior do Chitchat ou quando a caixa de dialogo está ativa
         if (screenText != null && (screenText.activeSelf || dialogBox.activeSelf))
         {
@@ -65,22 +72,23 @@ public class Chitchat {
         ou não, irão ser apresentadas as mensagens de dialogo de sugestão do quest ou a mensagem default. Quando ainda não existem cliques é apresentada a primeira mensagem do array (clicks = 0)*/
         if (dialogBox.activeSelf)
         {
+            Debug.Log(suggestionDialog.Length);
+
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 clicks++;
-                
-                if (clicks != charaterDialog.Count-1 && main.ActiveQuest == Main.QuestType.none)
+
+                if (clicks != suggestionDialog.Length)
                     setText(clicks, (string[])charaterDialog[0]);
                 
-                else if(clicks == charaterDialog.Count-1 && main.ActiveQuest == Main.QuestType.none)
+                else if(clicks == suggestionDialog.Length)
                 {
                     clicks = 0;
 
                     dialogBox.SetActive(false);
                     main.Chatting = false;
 
-                    //o jogador aceita o quest e este é guardado na main
-                    main.ActiveQuest = Main.QuestType.lamp;
+                    chatDone = true;
                 }
 
                 else
@@ -89,10 +97,7 @@ public class Chitchat {
 
             else if (clicks == 0)
             {
-                if (main.ActiveQuest == Main.QuestType.none)
-                    setText(clicks, (string[])charaterDialog[0]);
-                else
-                    setText(0, (string[])charaterDialog[1]);
+                    setText(0, (string[])charaterDialog[0]);
             }
 
         }

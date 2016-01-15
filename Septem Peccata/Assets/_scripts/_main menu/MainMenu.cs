@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 
         Cursor.visible = true;
+        Time.timeScale = 1;
 
         menuScreen = GameObject.Find("menu screen").gameObject;
         loadGameButton = GameObject.Find("load game").gameObject;

@@ -19,6 +19,8 @@ public class Main : MonoBehaviour
     private GameObject loadingImage;
     private int loadProgress = 0;
 
+    private GameObject diedUI;
+
     private GameObject optionsMenu;
     private GameObject pauseMenu;
 
@@ -57,6 +59,7 @@ public class Main : MonoBehaviour
     private int temptation;
     public bool pause = false;
     public bool playerAttacking = false;
+    private bool died = false;
     #endregion
 
     [SerializeField]
@@ -66,6 +69,8 @@ public class Main : MonoBehaviour
     {
         //o main nunca é destruido, passa de cena para cena
         DontDestroyOnLoad(gameObject);
+
+        Time.timeScale = 1;
     }
 
     void Start()
@@ -75,6 +80,7 @@ public class Main : MonoBehaviour
         HUD = canvas.transform.FindChild("HUD").gameObject;
         inventoryIcon = HUD.transform.FindChild("inventory").gameObject;
         inventoryDropdown = inventoryIcon.transform.FindChild("Dropdown").gameObject;
+        diedUI = canvas.transform.FindChild("death").gameObject;
 
         pauseUI = canvas.transform.FindChild("pause").gameObject;
         optionsMenu = pauseUI.transform.FindChild("options screen").gameObject;
@@ -115,6 +121,8 @@ public class Main : MonoBehaviour
     //é chamado quando um novo nivel é carregado (!= start)
     void OnLevelWasLoaded(int level)
     {
+        Time.timeScale = 1;
+
         if (loadingBackground != null)
         {
             loadingBackground.SetActive(false);
@@ -210,6 +218,12 @@ public class Main : MonoBehaviour
                 inventoryDropdown.GetComponent<Text>().text += "key\n";
         }
 
+        if(died && Input.GetKeyDown(KeyCode.Return))
+        {
+            StartCoroutine(DisplayLoadingScreen(currentLevel));
+            DestroyObject(gameObject);
+        }
+
         if (Input.GetKeyDown(KeyCode.Home))
         {
             StartCoroutine(DisplayLoadingScreen(currentLevel));
@@ -303,16 +317,16 @@ public class Main : MonoBehaviour
 
     private void PriestDie()
     {
-        pauseUI.transform.FindChild("text").GetComponent<Text>().text = "is dead";
-        pause = true;
-        onPauseGame();
+        Time.timeScale = 0;
+        died = true;
+        StartCoroutine(Fade(diedUI, 0.05f, false));
     }
 
-    IEnumerator Fade(GameObject group, float incrementation, bool op)
+    IEnumerator Fade(GameObject group, float incrementation, bool disable)
     {
         bool fade = true;
 
-        if (op)
+        if (disable)
         {
             foreach (Transform t in group.transform)
             {
