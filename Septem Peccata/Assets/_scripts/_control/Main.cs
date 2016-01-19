@@ -233,11 +233,27 @@ public class Main : MonoBehaviour
         }
 
         #region For Debugging Purposes
-        //DEBUG
-        //if (Input.GetKeyDown(KeyCode.Home))
+
+        //if (Input.GetKeyDown(KeyCode.PageUp))
         //{
-        //    StartCoroutine(DisplayLoadingScreen(currentLevel));
-        //    DestroyObject(gameObject);
+        //    if (currentLevel + 1 < 4)
+        //    {
+        //        StartCoroutine(DisplayLoadingScreen(currentLevel + 1));
+        //        DestroyObject(gameObject);
+
+        //        if (currentLevel + 1 != 1) Instantiate(Resources.Load("/_prefabs/_for all levels/main"));
+        //    }
+        //}
+        
+        //if (Input.GetKeyDown(KeyCode.PageDown))
+        //{
+        //    if (currentLevel - 1 > -1)
+        //    {
+        //        StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
+        //        DestroyObject(gameObject);
+
+        //        if(currentLevel - 1 != 1) Instantiate(Resources.Load("/_prefabs/_for all levels/main"));
+        //    }
         //}
 
         //if (Input.GetKeyDown(KeyCode.Delete))
@@ -251,11 +267,6 @@ public class Main : MonoBehaviour
         //    StartCoroutine(DisplayLoadingScreen(currentLevel + 1));
         //}
 
-        //if (Input.GetKeyDown(KeyCode.PageDown))
-        //{
-        //    StartCoroutine(DisplayLoadingScreen(currentLevel - 1));
-        //    DestroyObject(gameObject);
-        //}
         #endregion
     }
 
@@ -287,6 +298,8 @@ public class Main : MonoBehaviour
     {
         Time.timeScale = 0;
 
+        AudioListener.pause = true;
+
         StartCoroutine(Fade(HUD, -0.05f, false));
         StartCoroutine(Fade(pauseUI, +0.05f, false));
         StartCoroutine(Fade(pauseMenu, +0.05f, true));
@@ -299,6 +312,8 @@ public class Main : MonoBehaviour
     {
         Time.timeScale = 1;
         pause = false;
+
+        AudioListener.pause = false;
 
         StartCoroutine(Fade(pauseUI, -0.05f, false));
         StartCoroutine(Fade(pauseMenu, -0.05f, true));

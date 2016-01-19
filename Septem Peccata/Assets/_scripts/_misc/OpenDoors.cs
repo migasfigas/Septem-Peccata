@@ -72,7 +72,7 @@ public class OpenDoors : MonoBehaviour
 
         else if(!open && transform.localEulerAngles.y < defaultRot.y)
         {
-            //Close door
+            //Close door 4ever
             transform.localEulerAngles = Vector3.Slerp(transform.localEulerAngles, defaultRot, Time.deltaTime * smooth);
 
             if (closed4ever && deleted && gameObject.transform.localEulerAngles.y > 170)
@@ -94,6 +94,7 @@ public class OpenDoors : MonoBehaviour
                deleted = false;
             }
 
+            //close generated
             else if(!closed4ever && destroy && gameObject.transform.localEulerAngles.y > 170)
             {
                 if (changed)
@@ -102,6 +103,7 @@ public class OpenDoors : MonoBehaviour
                     changed = false;
                 }
 
+                GameObject.Find(generated.name + "/model/statue").GetComponent<HallwayStatue>().DestroyStatue();
                 DestroyObject(generated);
                 destroy = false;
                 created = false;
@@ -153,6 +155,8 @@ public class OpenDoors : MonoBehaviour
         }
     }
 
+
+    //quando o jogador passa a porta para o outro lado a porta é fechada para sempre (não pode voltar para trás)
     public void Close4Ever()
     {
         open = false;
@@ -165,6 +169,7 @@ public class OpenDoors : MonoBehaviour
 
     }
 
+    //se o jogador abre a porta e volta para trás o nível gerado é destruído
     public void DestroyGenerated()
     {
         if (generated != null)

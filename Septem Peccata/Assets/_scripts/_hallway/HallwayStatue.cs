@@ -12,7 +12,7 @@ public class HallwayStatue : MonoBehaviour {
     public GameObject [] statues = new GameObject[6];
     public AudioClip[] audiues = new AudioClip[6];
     public int lastState;
-    GameObject lastStatue;
+    public GameObject lastStatue;
 
 	// Use this for initialization
 	void Start () {
@@ -43,5 +43,10 @@ public class HallwayStatue : MonoBehaviour {
         {
             puzzle.Statue = lastStatue;
         }
+    }
+
+    public void DestroyStatue()
+    {
+        Destroy(lastStatue.gameObject);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Falling2UrImpendingDoom : MonoBehaviour {
 
-    Main main;
+    private Main main;
 
 	// Use this for initialization
 	void Start () {
@@ -24,8 +24,11 @@ public class Falling2UrImpendingDoom : MonoBehaviour {
             SceneManager.LoadScene(main.CurrentLevel);
             Main[] mains = GameObject.FindObjectsOfType<Main>();
 
-            foreach (Main m in mains)
-                Destroy(m.gameObject);
+            if (mains.Length > 1)
+            {
+                for (int i = 1; i < mains.Length; i++)
+                    Destroy(mains[i].gameObject);
+            }
         }
     }
 }

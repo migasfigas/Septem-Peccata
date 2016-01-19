@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour {
 
         readSettings("settings.txt");
 
-        if (!File.Exists(saveGameFile))
+       // if (!File.Exists(saveGameFile))
             loadGameButton.GetComponent<Button>().interactable = false;
 	}
 	

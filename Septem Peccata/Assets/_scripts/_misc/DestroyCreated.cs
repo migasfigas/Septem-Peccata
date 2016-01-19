@@ -4,10 +4,10 @@ using System.Collections;
 public class DestroyCreated : MonoBehaviour {
 
     public OpenDoors parentScript;
+    private HallwayStatue statueScript;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () {	
 	}
 	
 	// Update is called once per frame
